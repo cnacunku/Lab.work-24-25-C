@@ -1,0 +1,7 @@
+#include <stdio.h>
+#include <locale.h>
+int main()
+{
+    setlocale(LC_ALL, "RUS");
+    printf("Дано : \n %20g\n \n %20g \n_____________________ \nОтвет : \n%+21.7f",2.,1323.,2./1323);
+}
