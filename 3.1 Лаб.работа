@@ -1,0 +1,14 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+int main()
+{
+	int num, num1;
+	setlocale(LC_CTYPE, "RUS");
+	printf("Введите первое число ");
+	scanf("%d", &num);
+	printf("Введите второе число ");
+	scanf("%d", &num1);
+	printf("Сумма : %d\nРазность : %d\nПроизведение : %d\nЧастное : %d\nОстаток от деления : %d", num + num1, num - num1, num * num1, num / num1, num % num1);
+	return 0;
+}
