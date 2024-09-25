@@ -1,0 +1,21 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+int main()
+{
+	int a,b;
+	setlocale(LC_CTYPE, "RUS");
+	printf("Введите первое число  ");
+	scanf("%d", &a);
+	printf("Введите второе число :  ");
+	scanf("%d", &b);
+
+	printf("________________________ \n");
+	printf("|%7s|%7s|%7s|\n", "a * b", "a + b", "a - b");
+	printf("------------------------ \n");
+	printf("|%3d*%3d|%3d+%3d|%3d-%3d|\n", a,b,a,b,a,b);
+	printf("------------------------ \n");
+	printf("|%7d|%7d|%7d|\n", a * b, a + b, a - b);
+	printf("------------------------ \n");
+	return 0;
+}
