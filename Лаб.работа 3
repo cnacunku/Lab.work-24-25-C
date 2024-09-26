@@ -48,7 +48,7 @@ int main()
 	scanf("%d", &col);
 	printf("Введите стоимость единицы товара :  ");
 	scanf("%d", &sum);
-	cash = col * sum;
-	printf("Стоимость покупки, с учетом %d товаров и стоимости в %dр за 1 товар, составит : %d ", col, sum, cash);
+	cash=name(col, sum);
+	printf("Стоимость покупки, с учетом %d товаров цене в %dр за 1 товар, составит : %d ", col, sum, cash);
 	return 0;
 }
