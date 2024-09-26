@@ -1,15 +1,1 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <locale.h>
-#define D 2.54
-int main()
-{
-	int dym;
-	float result;
-	setlocale(LC_CTYPE, "RUS");
-	printf("Введите значение для расчёта :  ");
-	scanf("%d", &dym);
-	result = D * dym;
-	printf("%d дюймов – это %.2f см", dym, result);
-	return 0;
-}
+
