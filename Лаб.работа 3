@@ -2,6 +2,14 @@
 #include <stdio.h>
 #include <locale.h>
 #define D 2.54
+
+int name(int col, int sum)
+{
+	int cash;
+	cash = col * sum;
+	return cash;
+}
+
 int main()
 {
 	int num, num1;
@@ -10,7 +18,7 @@ int main()
 	scanf("%d", &num);
 	printf("Введите второе число ");
 	scanf("%d", &num1);
-	printf("Сумма : %d\nРазность : %d\nПроизведение : %d\nЧастное : %d\nОстаток от деления : %d\n", num + num1, num - num1, num * num1, num / num1, num % num1);
+	printf("Сумма : %d\nРазность : %d\nПроизведение : %d\nЧастное : %d\nОстаток от деления : %d\n \n", num + num1, num - num1, num * num1, num / num1, num % num1);
 
 	int dym;
 	float result;
@@ -18,19 +26,29 @@ int main()
 	printf("Введите значение для расчёта :  ");
 	scanf("%d", &dym);
 	result = D * dym;
-	printf("%d дюймов – это %.2f см\n", dym, result);
+	printf("%d дюймов – это %.2f см\n \n", dym, result);
 
-	int a, b;
+	float a, b;
 	setlocale(LC_CTYPE, "RUS");
-	printf("Введите первое число  ");
-	scanf("%d", &a);
+	printf("Введите первое число :  ");
+	scanf("%f", &a);
 	printf("Введите второе число :  ");
-	scanf("%d", &b);
-	printf("________________________ \n");
-	printf("|%7s|%7s|%7s|\n", "a * b", "a + b", "a - b");
-	printf("------------------------ \n");
-	printf("|%3d*%3d|%3d+%3d|%3d-%3d|\n", a, b, a, b, a, b);
-	printf("------------------------ \n");
-	printf("|%7d|%7d|%7d|\n", a * b, a + b, a - b);
-	printf("------------------------ \n");
+	scanf("%f", &b);
+	printf("_______________________________ \n");
+	printf("|%9s|%9s|%9s|\n", "a * b", "a + b", "a - b");
+	printf("------------------------------- \n");
+	printf("|%4.2f*%4.2f|%4.2f+%4.2f|%4.2f-%4.2f|\n", a, b, a, b, a, b);
+	printf("------------------------------- \n");
+	printf("|%9.2f|%9.2f|%9.2f|\n", a * b, a + b, a - b);
+	printf("------------------------------- \n");
+
+	int col, sum, cash;
+	setlocale(LC_CTYPE, "RUS");
+	printf("Введите кол-во товара :  ");
+	scanf("%d", &col);
+	printf("Введите стоимость единицы товара :  ");
+	scanf("%d", &sum);
+	cash = col * sum;
+	printf("Стоимость покупки, с учетом %d товаров и стоимости в %dр за 1 товар, составит : %d ", col, sum, cash);
+	return 0;
 }
