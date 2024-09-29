@@ -1,0 +1,28 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define M_PI 3.14159265358979323846
+#define _USE_MATH_DEFINES 
+#include <stdio.h>
+#include <conio.h>
+#include <locale.h>
+int main()
+{
+	setlocale(LC_CTYPE, "RUS");
+	float gr;
+	printf("Введите кол-во градусов : ");
+	scanf("%f", &gr);
+	printf("Кол-во заданных градусов в радианах равно : %.6f", gr * M_PI / 180);
+	
+	float x, y, a, b, k=7;
+	printf("\n\nx = ");
+	scanf("%f", &x);
+	b = log10(fabs(k * x));
+	a = pow(k + x, 3);
+	y = pow(b, 2) + sqrt(fabs(a));
+	printf("\nx = %.1f\ny = %.3f",x,y);
+
+
+	float F;
+	F = (2.33 * (log(sqrt(1 + pow(cos(1.6), 2))))) / (exp((- 2.3) * pow(10, -6)) + pow(sin(1.6), 2));
+	printf("\n\nF = %f",F);
+
+}
