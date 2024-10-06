@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define M_PI 3.14159265358979323846
 #define _USE_MATH_DEFINES 
+#include <math.h>
 #include <stdio.h>
 #include <conio.h>
 #include <locale.h>
@@ -12,14 +13,14 @@ int main()
 	scanf("%f", &gr);
 	printf("Кол-во заданных градусов в радианах равно : %.6f", gr * M_PI / 180);
 
-	float x, y, a, b, k=7;
-	
+	float x, y, a, b, k = 7;
+
 	printf("\n\nx = ");
 	scanf("%f", &x);
 
 	b = log10(fabs(k * x));
 	a = pow(k + x, 3);
-	y = pow(b, 2) + pow(fabs(a),1./2);
+	y = pow(b, 2) + pow(fabs(a), 1. / 2);
 	printf("\nx = %.1f\ny = %.3f", x, y);
 
 	int A, B, C;
