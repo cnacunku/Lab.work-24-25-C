@@ -1,0 +1,63 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <math.h>
+int dim(int m, int y) 
+{
+	if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12) return 31;
+	else if (m == 4 || m == 6 || m == 9 || m == 11) return 30;
+	else if (m == 2) return 29;
+	else (m = 2 && y % 4 == 0 && y % 100 != 0 || y % 400 == 0); return 29;
+}
+int main()
+{
+	setlocale(LC_CTYPE, "RUS");
+	int years;
+	printf("Введите год : ");
+	scanf("%d", &years);
+	if (years % 4 == 0 && years % 100 != 0 || years % 400 == 0)printf("\nГод %d високосный\n\n", years);
+	else printf("\nГод %d не високосный\n\n", years);
+
+	int x; float F;
+	printf("Введите значение x = ");
+	scanf("%d", &x);
+	if (x > 7) F = 1 / (pow(x, 2) - 4);
+	else F = 3 * x - 9;
+	//Контрольные примеры :
+	//x1=8 , F(8)=1/(8^2-4)=0.01(6)
+	//x2=5 , F(2)=3*5-9=6
+	printf("F = %f\n\n", F);
+
+	int d, m, y, dl,dly,diy,vib,i;
+	printf("Введите дату (дд мм гггг) : ");
+	scanf("%d %d %d", &d, &m, &y);
+
+	if (m < 1 || m>12) 
+		{ 
+			printf("Несуществующий месяц\n");
+			return 1;
+		}
+	if (d < 1 || d>dim(m, y)) 
+		{ 
+			printf("Несуществующий день\n");
+			return 1;  
+		}
+
+	printf("0 - если кол-во дней до конца месяца , 1 - если кол-во дней до конца года, Ввод : ");
+	scanf("%d", &vib);
+	dl = dim(m, y) - d;
+	if (vib == 0) printf("Количество дней до конца месяца : %dд\n", dl);
+	else if (vib == 1)
+	{
+		diy = 0;
+		for (i = m + 1;i <= 13;i++)
+		{
+			diy += dim(i, y);
+		}
+		diy -= d;
+		printf("Количество дней до конца года : %dд\n", diy+2);
+	}
+	else printf("Несуществующая команда\n");
+}
