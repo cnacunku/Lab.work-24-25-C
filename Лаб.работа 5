@@ -11,18 +11,23 @@ int main()
 	printf("Введите кол-во градусов : ");
 	scanf("%f", &gr);
 	printf("Кол-во заданных градусов в радианах равно : %.6f", gr * M_PI / 180);
-	
+
 	float x, y, a, b, k=7;
+	
 	printf("\n\nx = ");
 	scanf("%f", &x);
+
 	b = log10(fabs(k * x));
 	a = pow(k + x, 3);
-	y = pow(b, 2) + sqrt(fabs(a));
-	printf("\nx = %.1f\ny = %.3f",x,y);
+	y = pow(b, 2) + pow(fabs(a),1./2);
+	printf("\nx = %.1f\ny = %.3f", x, y);
 
+	int A, B, C;
+	A = (int)a;
+	B = (int)b;
+	C = (int)y;
+	printf("\n\nA = %d,B = %d,C = %d", A, B, C);
 
-	float F;
-	F = (2.33 * (log(sqrt(1 + pow(cos(1.6), 2))))) / (exp((- 2.3) * pow(10, -6)) + pow(sin(1.6), 2));
-	printf("\n\nF = %f",F);
-
+	float F;F = (2.33 * (log(pow(1 + pow(cos(1.9), 2), 1 / 2.f)))) / (exp(-1) + pow(sin(1.9), 2));
+	printf("\n\nF = %f", F);
 }
