@@ -31,15 +31,15 @@ int main()
 	{
 	case'+':
 		printf("%.f + %.f = %.f", x,y,x + y);
-		break;
+			break;
 	case'-':
 		printf("%.f - %.f = %.f", x, y, x - y);
-		break;
+			break;
 	case'*':
-		printf("%.f * %.f = %.f", x, y, x * y);
-		break;
+		printf("%.f * %.f = %.f", x, y, x*y);
+			break;
 	case'/':
-		printf("%.f / %.f = %.f", x, y, x/ y);
-		break;
+		printf("%.f / %.f = %.f", x, y, x/y);
+			break;
 	}
 }
