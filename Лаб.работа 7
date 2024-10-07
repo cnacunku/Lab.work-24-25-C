@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <locale.h>
+#include <conio.h>
+#include <math.h>
 int main()
 {
 	setlocale(LC_CTYPE, "RUS");
@@ -40,6 +42,9 @@ int main()
 			break;
 	case'/':
 		printf("%.f / %.f = %.f", x, y, x/y);
+			break;
+	case'^':
+		printf("%.f ^ %.f = %.f", x, y, pow(x, y));
 			break;
 	}
 }
