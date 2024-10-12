@@ -26,22 +26,24 @@ int main()
 		printf("Неизвестный символ\n");
 	}
 
+
+
 	float x, y; char cu;
 	printf("\n\nВведите пример : ");
 	scanf("%f %c %f", &x, &cu, &y);
 	switch (cu)
 	{
 	case'+':
-		printf("%.f + %.f = %.f", x,y,x + y);
+		printf("%.f + %.f = %.f", x, y, x + y);
 			break;
 	case'-':
 		printf("%.f - %.f = %.f", x, y, x - y);
 			break;
 	case'*':
-		printf("%.f * %.f = %.f", x, y, x*y);
+		printf("%.f * %.f = %.f", x, y, x * y);
 			break;
 	case'/':
-		printf("%.f / %.f = %.f", x, y, x/y);
+		printf("%.f / %.f = %.f", x, y, x / y);
 			break;
 	case'^':
 		printf("%.f ^ %.f = %.f", x, y, pow(x, y));
@@ -49,38 +51,53 @@ int main()
 	}
 
 
-Составить программу, которая интерпретирует степени 10 в
-соответствующие приставки вида «пико», «нано» ... «тера».
 
-*** В SCANF ПОДПРАВИТЬ ДЛЯ РАБОТЫ %%%
-
-char st;
-printf("\n\n10 со степенью : ");
-scanf("%f", &st);
-switch (st)
-{
-	case'1':
-		printf("\nПриставка для 10^%d - дека", 1);
+	int st;
+	printf("\n\n10 со степенью : ");
+	scanf("%d", &st);
+	switch (st)
+	{
+	case 1:
+		printf("\nПриставка для 10^%d - дека", st);
 			break;
-	case'2':
-		printf("\nПриставка для 10^%d - гекто", 2);
+	case -1:
+		printf("\nПриставка для 10^%d - деци", st);
 			break;
-	case'3':
-		printf("\nПриставка для 10^%d - кило", 3);
+	case 2:
+		printf("\nПриставка для 10^%d - гекто", st);
 			break;
-	case'6':
-		printf("\nПриставка для 10^%d - мега", 6);
+	case -2:
+		printf("\nПриставка для 10^%d - санти", st);
 			break;
-	case'9':
-		printf("\nПриставка для 10^%d - гига", 9);
+	case 3:
+		printf("\nПриставка для 10^%d - кило", st);
 			break;
-	case'12':
-		printf("\nПриставка для 10^%d - тера", 12);
+	case -3:
+		printf("\nПриставка для 10^%d - милли", st);
 			break;
-	case'15':
-		printf("\nПриставка для 10^%d - пета", 15);
+	case 6:
+		printf("\nПриставка для 10^%d - мега", st);
 			break;
-	default:
-		printf("Неизвестная приставка");
-}
+	case -6:
+		printf("\nПриставка для 10^%d - микро", st);
+			break;
+	case 9:
+		printf("\nПриставка для 10^%d - гига", st);
+			break;
+	case -9:
+		printf("\nПриставка для 10^%d - нано", st);
+			break;
+	case 12:
+		printf("\nПриставка для 10^%d - тера", st);
+			break;
+	case -12:
+		printf("\nПриставка для 10^%d - пико", st);
+			break;
+	case 15:
+		printf("\nПриставка для 10^%d - пета", st);
+			break;
+	case -15:
+		printf("\nПриставка для 10^%d - фемто", st);
+			break;
+	}
 }
