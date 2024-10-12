@@ -1,0 +1,58 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+#include <math.h>
+int main()
+{
+	setlocale(LC_CTYPE, "RUS");
+	int kol;char sim;
+	printf("Введите количество символов: ");
+	scanf("%d", &kol);
+	fflush(stdin);
+	printf("Введите символ для печати: ");
+	scanf(" %c", &sim);
+	for (int start = 1; start <= kol; start++)
+	{
+		printf("%c",sim);
+		printf("!");
+	}
+
+
+	int  n, m, s = 0, k = 1;
+	printf("\nВведите два целых числа: ");
+	scanf("%d %d", &n, &m);
+	for (int i = m; i >= n; i--) 
+	{
+		s += i;
+		printf("Выполнено %d раз\n",k++);
+	}
+	printf("Результат %d\n", s);
+
+
+
+	int st;
+	double res;
+	printf("Введите степень: ");
+	scanf("%d", &st);
+	for (int i = 1; i <= st; i++)
+	{
+		res = pow(2, i);
+		if (i == st)
+		{
+			printf("2^%d = %d\n", i, (int)res);
+			printf("Результат равен : %.1lfK",res/1024);
+		}
+		else
+		{
+			printf("2^%d = %d\n", i, (int)res);
+		}
+	}
+	
+
+	float dva = 1.0;
+	for (double i = 0.1;i <= 10;i += 0.1)
+	{
+		dva *= (1 + sin(i));
+	}
+	printf("\nРезультат 3 задания : %f\n", dva);
+}
