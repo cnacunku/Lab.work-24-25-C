@@ -1,7 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <locale.h>
+#include <conio.h>
 #include <math.h>
+#define M_PI 3.14159265358979323846
 int main()
 {
 	setlocale(LC_CTYPE, "RUS");
@@ -48,9 +50,20 @@ int main()
 		}
 	}
 	
-
+	double sh, na=0.1, ko=2.5;
+	printf("\nВведите шаг табуляции:\n");
+	scanf("%lf", &sh);
+	printf("____________________\n");
+	printf("|   x   |   f(x)   |\n");
+	printf("|_______|__________|\n");
+	for (double x = na; x <= ko; x += sh) 
+	{
+		printf("| %5.2f | %8.2f |\n", x, pow(x, 2) + 2 * M_PI * cos(M_PI * x));
+	}
+	printf("|_______|__________|\n");
+	
 	float dva = 1.0;
-	for (float i = 0.1;i <= 10;i += 0.1)
+	for (float i = 0.1;i <= 10.0;i += 0.1)
 	{
 		dva *= (1 + sin(i));
 	}
