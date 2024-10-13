@@ -50,7 +50,7 @@ int main()
 	
 
 	float dva = 1.0;
-	for (double i = 0.1;i <= 10;i += 0.1)
+	for (float i = 0.1;i <= 10;i += 0.1)
 	{
 		dva *= (1 + sin(i));
 	}
