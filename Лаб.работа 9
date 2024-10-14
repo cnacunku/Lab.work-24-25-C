@@ -5,6 +5,7 @@
 #include <math.h>
 void main()
 {
+	setlocale(LC_CTYPE, "RUS");
 	int row, col, COL=1;
 	printf("\n");
 	for (row = 1; row <= ROW; ++row)
@@ -16,6 +17,22 @@ void main()
 		COL += 1;
 		printf("\n");
 		}
-	
 	system("pouse");
+
+	printf("\n");
+	int wor, loc, LOC=1;
+	for (wor = 1; wor <= ROW; ++wor)
+	{
+		for (loc=5; loc >= LOC; loc--)
+		{
+			printf("1");
+		}
+		LOC += 1;
+		printf("\n");
+	}
+
+	int ran;
+	printf("Введите произвольное число : ");
+	scanf("%d", &ran);
+	
 }
