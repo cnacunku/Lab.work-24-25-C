@@ -1,20 +1,19 @@
-#define _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS  
 #define	ROW 9
-#include <stdio.h>
-#include <locale.h>
-#include <math.h>
-void main()
-{
-	setlocale(LC_CTYPE, "RUS");
+#include <stdio.h>  
+#include <locale.h>  
+#include <math.h>  
+int main() {
+    setlocale(LC_CTYPE, "RUS");
 
 	int row, col, COL = 1;
 	printf("\n");
 	for (row = 1; row <= ROW; ++row)
 	{
 		for (col = 1; col <= COL; col++)
-			{
-				printf("%5d", col * row);
-			}
+		{
+			printf("%5d", col * row);
+		}
 		COL += 1;
 		printf("\n");
 	}
@@ -31,7 +30,7 @@ void main()
 		printf("\n");
 	}
 
-	
+
 	char a;
 	while (1)
 	{
@@ -57,4 +56,44 @@ void main()
 			break;
 		}
 	}
+	printf("\n");
+
+    char si;
+    int rad, dl, i, j;
+
+    printf("Введите символ для построения дельтоида : ");
+	while (getchar() != '\n');
+    scanf("%c", &si);
+
+    printf("Введите радиус описанной окружности дельтоида : ");
+    scanf("%d", &rad);
+
+    printf("Введите длинну стороны дельтоида : ");
+    scanf("%d", &dl);
+
+    for (i = 0; i < dl; i++)
+    {
+        for (j = 0; j < rad - i; j++)
+        {
+            printf(" ");
+        }
+        for (j = 0; j < i * 2 + 1; j++)
+        {
+            printf("%c", si);
+        }
+        printf("\n");
+    }
+    for (i = dl - 2; i >= 0; i--)
+    {
+        for (j = 0; j < rad - i; j++)
+        {
+            printf(" ");
+        }
+        for (j = 0; j < i * 2 + 1; j++)
+        {
+            printf("%c", si);
+        }
+        printf("\n");
+    }
+    return 0;
 }
