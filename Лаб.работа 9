@@ -32,19 +32,29 @@ void main()
 	}
 
 	
-	int ch;
-	printf("Введите произвольное число: ");
-	scanf("%d", &ch);
-	int pra = ch % 10;
-	ch /= 10;
-	while (ch > 0)
+	char a;
+	while (1)
 	{
-		int nra = ch % 10;
-		if (nra == pra)
-		{
-			printf("Соседние одинаковые цифры : %d\n", nra);
-		}
-		pra = nra;
+		int ch;
+		printf("Введите произвольное число: ");
+		scanf("%d", &ch);
+		int pra = ch % 10;
 		ch /= 10;
+		while (ch > 0)
+		{
+			int nra = ch % 10;
+			if (nra == pra)
+			{
+				printf("Соседние одинаковые цифры : %d\n", nra);
+			}
+			pra = nra;
+			ch /= 10;
+		}
+		printf("Продолжить? (Да - y, нет - n) : ");
+		while (getchar() != '\n');
+		if ((a = getchar()) == 'n')
+		{
+			break;
+		}
 	}
 }
