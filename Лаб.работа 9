@@ -6,33 +6,45 @@
 void main()
 {
 	setlocale(LC_CTYPE, "RUS");
-	int row, col, COL=1;
+
+	int row, col, COL = 1;
 	printf("\n");
 	for (row = 1; row <= ROW; ++row)
-		{
+	{
 		for (col = 1; col <= COL; col++)
 			{
 				printf("%5d", col * row);
 			}
 		COL += 1;
 		printf("\n");
-		}
-	system("pouse");
+	}
 
 	printf("\n");
-	int wor, loc, LOC=1;
+	int wor, loc, LOC = 1;
 	for (wor = 1; wor <= ROW; ++wor)
 	{
-		for (loc=5; loc >= LOC; loc--)
+		for (loc = 5; loc >= LOC; loc--)
 		{
-			printf("1");
+			printf(" 1");
 		}
 		LOC += 1;
 		printf("\n");
 	}
 
-	int ran;
-	printf("Введите произвольное число : ");
-	scanf("%d", &ran);
 	
+	int ch;
+	printf("Введите произвольное число: ");
+	scanf("%d", &ch);
+	int pra = ch % 10;
+	ch /= 10;
+	while (ch > 0)
+	{
+		int nra = ch % 10;
+		if (nra == pra)
+		{
+			printf("Соседние одинаковые цифры : %d\n", nra);
+		}
+		pra = nra;
+		ch /= 10;
+	}
 }
