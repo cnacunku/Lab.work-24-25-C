@@ -24,14 +24,12 @@ int fuk(int N)
 		fak *= i;
 	return fak;
 }
-double sin_n(double x, int Ne)
+double sin_n(double iks, int Ne)
 {
-	for (int i = 1; i <= Ne; i++)
+	double ss = 0;
+	for (int k = 1; k <= Ne; k++)
 	{
-		for (int k = 1; k <= Ne; k++)
-		{
-			double sin_n = pow(-1, k - 1) * (pow(Ne, 2 * k + 1)) / fuk((2 * k - 1));
-		}
+		ss+=pow(-1, k - 1) * (pow(iks, 2 * k + 1)) / fuk((2 * k - 1));
 	}
 }
 int main()
@@ -45,14 +43,17 @@ int main()
 	printf("fa(x)=%lf , fb(x)=%lf \n\n", fa(x), fb(x));
 	printf("Произведение : %lf\nРазность квадратов : %lf\nУдвоенная сумма : %lf\n\n", fa(x) * fb(x),pow(fa(x),2)-pow(fb(x),2),(fa(x)+fb(x))*2);
 
-	int Ne,k,fak=1;
-	double sin;
+	int iks,Ne,k,fak=1;
 	printf("Введите k — ");
 	scanf("%d", &Ne);
+	printf("Введите x — ");
+	scanf("%d", &iks);
 
-	for (int k = 1; k <= Ne; k++)
+	for (int i = 1; i <= Ne; i++)
 	{
-		printf("%d\n", sin_n(N));
+		for (int k = 1; k <= Ne; k++)
+		{
+			printf("%d% | %lf\n", Ne, sin_n(iks, Ne));
+		}
 	}
-	
 }
