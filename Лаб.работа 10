@@ -47,9 +47,11 @@ int main()
 	printf("Введите k — ");
 	scanf("%d", &Ne);
 	printf("Введите x — ");
-	scanf("%d", &iks);
+	scanf("%lf", &iks);
 
 	for (int i = 1; i <= Ne; i++)
-		for (k = 1; k <= Ne; k++)
-			printf("%d | %d\n", Ne, sin_n(iks, Ne));
+	{
+		
+		printf("%d | %lf\n", Ne, sin_n(iks, Ne));
+	}
 }
