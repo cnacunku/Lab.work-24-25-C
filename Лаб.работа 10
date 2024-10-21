@@ -50,10 +50,6 @@ int main()
 	scanf("%d", &iks);
 
 	for (int i = 1; i <= Ne; i++)
-	{
-		for (int k = 1; k <= Ne; k++)
-		{
-			printf("%d% | %lf\n", Ne, sin_n(iks, Ne));
-		}
-	}
+		for (k = 1; k <= Ne; k++)
+			printf("%d | %d\n", Ne, sin_n(iks, Ne));
 }
