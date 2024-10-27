@@ -1,0 +1,60 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <math.h>
+double fa(double x)
+{
+	double y1;
+	if (x <= 3) y1 = pow(x, 2) - 3 * x + 9;
+	else y1 = 1 / (pow(x, 3) + 3);
+	return y1;
+}
+double fb(double x)
+{
+	double y2;
+	y2 = x * exp(sin(pow(x, 2)));
+	return y2;
+}
+double fuk(int N)
+{
+	double fak = 1;
+	for (int i = 1; i <= N; i++)
+		fak *= i;
+	return fak;
+}
+double sin_n(double iks, int Ne)
+{
+	double ss = 0;
+	for (int n = 1; n <= Ne; n++)
+	{
+		ss += (pow(-1, n - 1) * pow(iks, 2 * n - 1)) / fuk(2 * n - 1);
+	}
+	return ss;
+}
+int main()
+{
+	setlocale(LC_CTYPE, "RUS");
+
+	double x;
+	printf("Введите значение x = ");
+	scanf("%lf", &x);
+
+	printf("fa(x)=%lf , fb(x)=%lf \n\n", fa(x), fb(x));
+	printf("Произведение : %lf\nРазность квадратов : %lf\nУдвоенная сумма : %lf\n\n", fa(x) * fb(x), pow(fa(x), 2) - pow(fb(x), 2), (fa(x) + fb(x)) * 2);
+
+	int Ne;
+	double iks, rt=0;
+	printf("Введите N — ");
+	scanf("%d", &Ne);
+	printf("Введите x — ");
+	scanf("%lf", &iks);
+	printf(" N |    sin_n   | отклонение:\n");
+	for (int k = 1;k <= Ne;k++)
+	{
+		rt = sin_n(iks, k);
+		printf("%3.d|%7.10lf|%+le\n", k, rt, sin(iks) - rt);
+	}
+	
+}
