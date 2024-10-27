@@ -1,0 +1,92 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <locale.h>
+#include <conio.h>
+#include <math.h>
+void opr(int a)
+{
+    if (a == 4) 
+    {
+        printf("Дельтоид — это четырехугольник, у которого две пары соседних сторон равны.\n");
+    }
+    else 
+    {
+        printf("Неизвестная фигура.\n");
+    }
+}
+
+float plos_del(float a)
+{
+    return a*a; 
+}
+
+void ris_del(int a)
+{
+    char si;
+    int rad, dl, i, j;
+
+    printf("Введите символ для построения дельтоида : ");
+    while (getchar() != '\n');
+    scanf("%c", &si);
+
+    printf("Введите радиус описанной окружности дельтоида : ");
+    scanf("%d", &rad);
+
+    printf("Введите длинну стороны дельтоида : ");
+    scanf("%d", &dl);
+
+    for (i = 0; i < dl; i++)
+    {
+        for (j = 0; j < rad - i; j++)
+        {
+            printf("  ");
+        }
+        for (j = 0; j < i * 2 + 1; j++)
+        {
+            printf("%c ", si);
+        }
+        printf("\n");
+    }
+    for (i = dl - 2; i >= 0; i--)
+    {
+        for (j = 0; j < rad - i; j++)
+        {
+            printf("  ");
+        }
+        for (j = 0; j < i * 2 + 1; j++)
+        {
+            printf("%c ", si);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    int choice;
+    float dlst;
+
+    printf("Введите длину стороны дельтоида : ");
+    scanf("%f", &dlst);
+
+    printf("\nВыберите операцию:\n");
+    printf("1) Рассчитать площадь\n");
+    printf("2) Вывести определение фигуры\n");
+    printf("3) Нарисовать фигуру\n");
+    printf("\nВаш выбор: ");
+    scanf("%d", &choice);
+
+    switch (choice)
+    {
+    case 1:
+        printf("Площадь дельтоида : %.2f\n", plos_del(dlst));
+            break;
+    case 2:
+        opr(4);
+            break;
+    case 3:
+        ris_del((int)dlst);
+            break;
+        }
+}
