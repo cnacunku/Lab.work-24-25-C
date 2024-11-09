@@ -1,0 +1,112 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    //указатели
+    char* o;
+    int* d;
+    double* t;
+
+    //переменные
+    char c;
+    int p;
+    double s;
+
+    //размер указателей
+    printf("Размер указателя на char: %lu байт\n", sizeof(o));
+    printf("Размер указателя на int: %lu байт\n", sizeof(d));
+    printf("Размер указателя на double: %lu байт\n", sizeof(t));
+
+    //размер переменных
+    printf("Размер переменной типа char: %lu байт\n", sizeof(c));
+    printf("Размер переменной типа int: %lu байт\n", sizeof(p));
+    printf("Размер переменной типа double: %lu байт\n", sizeof(s));
+
+    float PI = 3.14159, * p1, * p2;
+    p1 = p2 = &PI;
+    printf("\nПо адресу p1=%x хранится *p1=%g\n", p1, *p1);
+    printf("По адресу p2=%x хранится *p2=%g\n", p2, *p2);
+
+    _Bool* pa, x = 5;
+    pa = &x;
+    printf("\nПо адресу %p хранится *ptr=%g\n", pa, *pa);
+    pa++;
+    printf("По адресу %p хранится *ptr=%g\n", pa, *pa);
+    pa--;
+    printf("По адресу %p хранится *ptr=%g\n", pa, *pa);
+
+    float array[10] = { 1.1, 2.2, 3.3, 4.4 , 5.5 , 6.6 , 7.7 , 8.8 , 9.9 , 10.10};
+    float* ptr_a;
+    printf("\nАдрес массива : %p\n", array);
+    printf("Адрес первого элемента массива : %p\n", array[0]);
+    printf("Адрес массива : %p\n", &array);
+    
+    ptr_a = &array[0];
+    printf("\nptr_a  : % p | значение : %.1f\n", ptr_a, *ptr_a);
+    ptr_a++;
+    printf("ptr_a++: % p | значение : %.1f\n", ptr_a, *ptr_a);
+    ptr_a+=4;
+    printf("ptr_a+4: % p | значение : %.1f\n", ptr_a, *ptr_a);
+    ptr_a-=2;
+    printf("ptr_a-2: % p | значение : %.1f\n\n", ptr_a, *ptr_a);
+
+    for (int i = 4; i < 12; i += 2)
+    {
+        printf(" %d | ptr_a: %p | значение: %.1f\n", i, ptr_a, *ptr_a);
+        ptr_a += 2;
+    }
+    printf("\n");
+
+    ptr_a = &array[9];
+    for (int i = 10; i >= 1; i--)
+    {
+        printf(" %d | ptr_a: %p | значение: %.1f\n", i, ptr_a, *ptr_a);
+        ptr_a--; 
+    }
+
+
+    int odin = 12345.0;
+    int* prtodin;
+    unsigned char* od1, * od2, * od3, * od4;
+    unsigned char* od;
+    prtodin = &odin;
+    od = (unsigned char*)prtodin;
+    od1 = od + 3;
+    od2 = od + 2;
+    od3 = od + 1;
+    od4 = od;
+    printf("\nБайты переменной int:\n");
+    printf("%.2x\n%.2x\n%.2x\n%.2x\n", *od1, *od2, *od3, *od4);
+
+    float dva = 12345.0;
+    int* prtdva;
+    unsigned char* dv1, * dv2, * dv3, * dv4;
+    unsigned char* dv;
+    prtdva = &dva;
+    dv = (unsigned char*)prtdva;
+    dv1 = dv + 3;
+    dv2 = dv + 2;
+    dv3 = dv + 1;
+    dv4 = dv;
+    printf("Байты переменной float:\n");
+    printf("%.2x\n%.2x\n%.2x\n%.2x\n", *dv1, *dv2, *dv3, *dv4);
+
+    double tri = 12345.0;
+    int* prttri;
+    unsigned char* tr1, * tr2, * tr3, * tr4;
+    unsigned char* tr;
+    prttri = &tri;
+    tr = (unsigned char*)prttri;
+    tr1 = tr + 3;
+    tr2 = tr + 2;
+    tr3 = tr + 1;
+    tr4 = tr;
+    printf("Байты переменной double:\n");
+    printf("%.2x\n%.2x\n%.2x\n%.2x\n", *tr1, *tr2, *tr3, *tr4);
+
+   
+}
