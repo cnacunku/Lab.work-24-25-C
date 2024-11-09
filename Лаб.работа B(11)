@@ -1,0 +1,30 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+#define N 10
+int main()
+{
+    setlocale(LC_CTYPE, "RUS");
+    double temp;
+    float A[N];
+    for (int i = 0; i < 10; i++)
+    {
+        printf("a[%d] = ", i);
+        scanf("%lf", &temp);
+        A[i] = temp;
+    }
+    printf("_______________________________________________\n");
+    printf("| индекс | исходное значение | новое значение |\n");
+    printf("|--------|-------------------|----------------|\n");
+    for (int i = 0; i < 10; i++)
+    {
+        printf("|%8d|", i);
+        printf("%19.lf|", A[i]);
+        A[i] = ceil(A[i]);
+        printf("%16.lf|\n", A[i]);
+    }
+    printf("-----------------------------------------------\n");
+}
