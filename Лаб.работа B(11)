@@ -64,7 +64,23 @@ int main()
 	printf("\nНакопленное значение отрицательных элементов: %lf\n", copotr);
 
 	printf("\nКоличество положмтельных элементов: %d", colpol);
-	printf("\nКоличество отрицательных элементов: %d", colotr);
+	printf("\nКоличество отрицательных элементов: %d\n\n", colotr);
 
+	
 
+	int ihy[N];
+	for (int i = 0; i < N; i++)
+	{
+		printf("a[%d] = ", i);
+		scanf("%d", &ihy[i]);
+	}
+	int lastindex;
+	for (int i = 0; i < N; i++)
+	{
+		if (ihy[i] < 0 && ihy[i] % 3 == 0)
+		{
+			lastindex = i;
+		}
+	}
+	printf("Идекс последнего отрицательного элемента, делящегося на 3: %d\n", lastindex);
 }
