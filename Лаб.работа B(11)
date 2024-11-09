@@ -5,6 +5,7 @@
 #include <conio.h>
 #include <math.h>
 #define N 10
+#define M_PI 3.14159265358979323846
 int main()
 {
     setlocale(LC_CTYPE, "RUS");
@@ -18,7 +19,7 @@ int main()
     }
     for (int i = 0;i < N;i++)
     {
-        ari+=A[i];
+        ari += A[i];
     }
     printf("_______________________________________________\n");
     printf("| индекс | исходное значение | новое значение |\n");
@@ -31,5 +32,39 @@ int main()
         printf("%16.lf|\n", A[i]);
     }
     printf("-----------------------------------------------\n");
-    printf("Среднее арифметическое элементов массива: %lf", ari / N);
+    printf("Среднее арифметическое элементов массива: %lf\n\n", ari / N);
+    
+	float x, ily[100];
+	double step, nogr = 0.1, kogr = 2.5;
+	double coppol = 0.0, copotr = 0.0;
+	int colpol = 0, colotr = 0;
+	int shit=0;
+	printf("\nВведите шаг табуляции:");
+	scanf("%lf", &step);
+	for (double x = nogr;x <= kogr;x += step)
+	{
+		ily[shit] = pow(x, 2) + 2 * M_PI * cos(M_PI * x);
+		shit++;
+	}
+	for (int i = 0; i < 100; i++)	
+	{
+		if (ily[i] > 0)
+		{
+			coppol += ily[i];
+			colpol++;
+		}
+		else if (ily[i] < 0)
+		{
+			copotr += ily[i];
+			colotr++;
+		}
+	}
+	printf("\nИмя массива: ily\n");
+	printf("\nНакопленное значение положительных элементов: %lf", coppol);
+	printf("\nНакопленное значение отрицательных элементов: %lf\n", copotr);
+
+	printf("\nКоличество положмтельных элементов: %d", colpol);
+	printf("\nКоличество отрицательных элементов: %d", colotr);
+
+
 }
