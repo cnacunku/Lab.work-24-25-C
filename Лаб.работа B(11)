@@ -8,18 +8,22 @@
 int main()
 {
     setlocale(LC_CTYPE, "RUS");
-    double temp;
+    double temp, ari = 0;
     float A[N];
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < N; i++)
     {
         printf("a[%d] = ", i);
         scanf("%lf", &temp);
         A[i] = temp;
     }
+    for (int i = 0;i < N;i++)
+    {
+        ari+=A[i];
+    }
     printf("_______________________________________________\n");
     printf("| индекс | исходное значение | новое значение |\n");
     printf("|--------|-------------------|----------------|\n");
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < N; i++)
     {
         printf("|%8d|", i);
         printf("%19.lf|", A[i]);
@@ -27,4 +31,5 @@ int main()
         printf("%16.lf|\n", A[i]);
     }
     printf("-----------------------------------------------\n");
+    printf("Среднее арифметическое элементов массива: %lf", ari / N);
 }
