@@ -108,5 +108,9 @@ int main() {
     printf("Байты переменной double:\n");
     printf("%.2x\n%.2x\n%.2x\n%.2x\n", *tr1, *tr2, *tr3, *tr4);
 
-   
+    signed int abc = 1;
+    signed int* petr = &abc;
+    petr++;
+    int razniza = (char*)petr - (char*)&abc;
+    printf("\nРазмер signed int: %d байт\n", razniza);
 }
