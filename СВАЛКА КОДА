@@ -26,19 +26,74 @@ struct factory {
 	struct person persons[100];
 	int col_person;		
 };
+int dim(int m, int y) {
+    if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)
+        return 31;
+    else if (m == 4 || m == 6 || m == 9 || m == 11)
+        return 30;
+    else if (m == 2 && (y % 4 == 0 && y % 100 != 0 || y % 400 == 0))
+        return 29;
+    else
+        return 28;
+}
+
+int validate_date(int d, int m, int y) {
+    if (m < 1 || m > 12) {
+        printf("Несуществующий месяц\n");
+        return 0;
+    }
+    if (d < 1 || d > dim(m, y)) {
+        printf("Несуществующий день\n");
+        return 0;
+    }
+    return 1; // Дата корректна
+}
 void vvod_persons(struct person* p) { // ввод данных
     printf("Введите фамилию, имя, отчество: ");
     scanf("%s %s %s", p->fam, p->im, p->ot);
-    printf("Введите дату рождения (день месяц год): ");
-    scanf("%d %d %d", &p->rozdenie.day, &p->rozdenie.month, &p->rozdenie.year);
-    printf("Введите средний возраст: ");
-    scanf("%d", &p->sr_vrst);
+    while (1) {
+        printf("Введите дату рождения (день месяц год): ");
+        scanf("%d %d %d", &p->rozdenie.day, &p->rozdenie.month, &p->rozdenie.year);
+
+        if (validate_date(p->rozdenie.day, p->rozdenie.month, p->rozdenie.year)) {
+            break; // Если дата корректна, выходим из цикла
+        }
+        else {
+            printf("Попробуйте снова.\n");
+        }
+    }
+    while (1) {
+        printf("Введите средний возраст: ");
+        scanf("%d", &p->sr_vrst);
+        if (p->sr_vrst < 0) {
+            printf("Ошибка: средний возраст не может быть отрицательным. Попробуйте снова.\n");
+        }
+        else {
+            break;
+        }
+    }
     printf("Введите специальность: ");
     scanf("%s", p->specialty);
-    printf("Введите средний оклад: ");
-    scanf("%f", &p->sr_zp);
-    printf("Введите стаж (в годах): ");
-    scanf("%d", &p->opit);
+    while (1) {
+        printf("Введите средний оклад: ");
+        scanf("%f", &p->sr_zp);
+        if (p->sr_zp < 0) {
+            printf("Ошибка: средний оклад не может быть отрицательным. Попробуйте снова.\n");
+        }
+        else {
+            break;
+        }
+    }
+    while (1) {
+        printf("Введите стаж (в годах): ");
+        scanf("%d", &p->opit);
+        if (p->opit < 0) {
+            printf("Ошибка: стаж не может быть отрицательным. Попробуйте снова.\n");
+        }
+        else {
+            break;
+        }
+    }
 }
 void factory_file(struct factory* f, const char* zavod) {
     FILE* file = fopen(zavod, "ab");// Режим "ab" означает, что файл открывается для записи в бинарном режиме (b) и данные будут добавлены в конец файла (a), если файл уже существует. Если файл не существует, он будет создан.//
@@ -114,4 +169,3 @@ int main()
 
     return 0;
 }
-
