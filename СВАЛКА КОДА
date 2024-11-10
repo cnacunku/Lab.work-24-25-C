@@ -4,37 +4,33 @@
 #include <locale.h>
 #include <string.h>
 
-#define MAX_FACTORY_NAME_LENGTH 100
 #define MAX_PERSONS 100
 
 struct date {
-    int day;
-    int month;
-    int year;
+	int day;
+	int month;
+	int year;
 };
-
 struct person {
-    char fam[20];
-    char im[20];
-    char ot[20];
-    struct date birth_date;
-    int sr_vrst; // Средний возраст
-    char specialty[50];
-    float sr_zp; // Средний оклад
-    int experience; // Стаж в годах
+	char fam[20];
+	char im[20];
+	char ot[20];
+	struct date rozdenie; 
+	int sr_vrst;
+	char specialty[50];
+	float sr_zp;
+	int opit; // Стаж в годах
 };
-
 struct factory {
-    int factory_number; // Номер завода
-    struct person persons[MAX_PERSONS]; // Массив работников
-    int num_persons; // Количество работников
+	int naz_factory;
+	struct person persons[100];
+	int col_person;		
 };
-
-void input_person(struct person* p) {
+void vvod_persons(struct person* p) { // ввод данных
     printf("Введите фамилию, имя, отчество: ");
     scanf("%s %s %s", p->fam, p->im, p->ot);
     printf("Введите дату рождения (день месяц год): ");
-    scanf("%d %d %d", &p->birth_date.day, &p->birth_date.month, &p->birth_date.year);
+    scanf("%d %d %d", &p->rozdenie.day, &p->rozdenie.month, &p->rozdenie.year);
     printf("Введите средний возраст: ");
     scanf("%d", &p->sr_vrst);
     printf("Введите специальность: ");
@@ -42,39 +38,80 @@ void input_person(struct person* p) {
     printf("Введите средний оклад: ");
     scanf("%f", &p->sr_zp);
     printf("Введите стаж (в годах): ");
-    scanf("%d", &p->experience);
+    scanf("%d", &p->opit);
 }
-
-void save_factory_to_file(struct factory* f, const char* filename) {
-    FILE* file = fopen(filename, "ab");
+void factory_file(struct factory* f, const char* zavod) {
+    FILE* file = fopen(zavod, "ab");// Режим "ab" означает, что файл открывается для записи в бинарном режиме (b) и данные будут добавлены в конец файла (a), если файл уже существует. Если файл не существует, он будет создан.//
+    if (file == NULL) {
+        perror("Ошибка открытия файла");// Если file равен NULL, это означает, что произошла ошибка при открытии файла. В этом случае функция perror выводит сообщение об ошибке, и выполнение функции завершается с помощью return.//
+        return;
+    }
+    fwrite(f, sizeof(struct factory), 1, file);// Функция fwrite используется для записи данных в файл.//
+    fclose(file);
+}
+void read_factory_file(const char* zavod) {
+    FILE* file = fopen(zavod, "rb"); // Открываем файл для чтения в бинарном режиме
     if (file == NULL) {
         perror("Ошибка открытия файла");
         return;
     }
-    fwrite(f, sizeof(struct factory), 1, file);
+    struct factory f;
+    while (fread(&f, sizeof(struct factory), 1, file) == 1) { // Читаем данные из файла
+        printf("Номер завода: %d\n", f.naz_factory);
+        printf("Количество работников: %d\n", f.col_person);
+        for (int i = 0; i < f.col_person; i++) {
+            printf("Работник %d:\n", i + 1);
+            printf("Фамилия: %s\n", f.persons[i].fam);
+            printf("Имя: %s\n", f.persons[i].im);
+            printf("Отчество: %s\n", f.persons[i].ot);
+            printf("Дата рождения: %02d.%02d.%04d\n", f.persons[i].rozdenie.day, f.persons[i].rozdenie.month, f.persons[i].rozdenie.year);
+            printf("Средний возраст: %d\n", f.persons[i].sr_vrst);
+            printf("Специальность: %s\n", f.persons[i].specialty);
+            printf("Средний оклад: %.2f\n", f.persons[i].sr_zp);
+            printf("Стаж: %d лет\n", f.persons[i].opit);
+            printf("\n");
+        }
+    }
     fclose(file);
 }
+void clear_factory_file(const char* zavod) {
+    FILE* file = fopen(zavod, "wb"); // Открываем файл в режиме записи, что очищает его
+    if (file == NULL) {
+        perror("Ошибка открытия файла для очистки");
+        return;
+    }
+    fclose(file); // Закрываем файл
+}
+int main()
+{
+    setlocale(LC_CTYPE, "RUS");
+    struct factory f;// объявляет переменную f, которая является экземпляром структуры factory, и выделяет необходимую память для хранения данных, описанных в структуре.
+    f.col_person = 0;
 
-int main() {
-    setlocale(0, "ru");
-    struct factory f;
-    f.num_persons = 0;
+    clear_factory_file("factories.dat");
 
     printf("Введите номер завода: ");
-    scanf("%d", &f.factory_number);
+    scanf("%d", &f.naz_factory);
 
-    printf("Введите количество работников: ");
-    scanf("%d", &f.num_persons);
+    printf("Введите количество работников(Максимум %d): ",MAX_PERSONS);
+    scanf("%d", &f.col_person);
+    if (f.col_person > MAX_PERSONS) {
+        printf("Ошибка: количество работников не может превышать %d.\n", MAX_PERSONS);
+        return 1;
+    }
 
-    for (int i = 0; i < f.num_persons; i++) {
+    for (int i = 0; i < f.col_person; i++) {
         printf("\nВведите данные для работника %d:\n", i + 1);
-        input_person(&f.persons[i]);
+        vvod_persons(&f.persons[i]);
     }
 
     // Сохранение данных в файл
-    save_factory_to_file(&f, "factories.dat");
-
+    factory_file(&f, "factories.dat");
     printf("\nДанные успешно сохранены в файл.\n");
+    // Чтение данных
+    printf("\nЧтение данных из файла:\n");
+    read_factory_file("factories.dat");
 
     return 0;
 }
+
