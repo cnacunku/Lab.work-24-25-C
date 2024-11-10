@@ -168,4 +168,6 @@ int main()
     read_factory_file("factories.dat");
 
     return 0;
+    /*Реализовано: 1✓ 2✓ 3  4  6 *
+                   1✓ 2  3✓ 4  5*/ 
 }
