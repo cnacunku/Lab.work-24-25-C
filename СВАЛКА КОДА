@@ -1,0 +1,80 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+
+#define MAX_FACTORY_NAME_LENGTH 100
+#define MAX_PERSONS 100
+
+struct date {
+    int day;
+    int month;
+    int year;
+};
+
+struct person {
+    char fam[20];
+    char im[20];
+    char ot[20];
+    struct date birth_date;
+    int sr_vrst; // Средний возраст
+    char specialty[50];
+    float sr_zp; // Средний оклад
+    int experience; // Стаж в годах
+};
+
+struct factory {
+    int factory_number; // Номер завода
+    struct person persons[MAX_PERSONS]; // Массив работников
+    int num_persons; // Количество работников
+};
+
+void input_person(struct person* p) {
+    printf("Введите фамилию, имя, отчество: ");
+    scanf("%s %s %s", p->fam, p->im, p->ot);
+    printf("Введите дату рождения (день месяц год): ");
+    scanf("%d %d %d", &p->birth_date.day, &p->birth_date.month, &p->birth_date.year);
+    printf("Введите средний возраст: ");
+    scanf("%d", &p->sr_vrst);
+    printf("Введите специальность: ");
+    scanf("%s", p->specialty);
+    printf("Введите средний оклад: ");
+    scanf("%f", &p->sr_zp);
+    printf("Введите стаж (в годах): ");
+    scanf("%d", &p->experience);
+}
+
+void save_factory_to_file(struct factory* f, const char* filename) {
+    FILE* file = fopen(filename, "ab");
+    if (file == NULL) {
+        perror("Ошибка открытия файла");
+        return;
+    }
+    fwrite(f, sizeof(struct factory), 1, file);
+    fclose(file);
+}
+
+int main() {
+    setlocale(0, "ru");
+    struct factory f;
+    f.num_persons = 0;
+
+    printf("Введите номер завода: ");
+    scanf("%d", &f.factory_number);
+
+    printf("Введите количество работников: ");
+    scanf("%d", &f.num_persons);
+
+    for (int i = 0; i < f.num_persons; i++) {
+        printf("\nВведите данные для работника %d:\n", i + 1);
+        input_person(&f.persons[i]);
+    }
+
+    // Сохранение данных в файл
+    save_factory_to_file(&f, "factories.dat");
+
+    printf("\nДанные успешно сохранены в файл.\n");
+
+    return 0;
+}
