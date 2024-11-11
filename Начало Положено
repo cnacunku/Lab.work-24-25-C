@@ -105,7 +105,7 @@ void factory_file(struct factory* f, const char* zavod) {
     fclose(file);
 }
 void read_factory_file(const char* zavod) {
-    FILE* file = fopen(zavod, "rb"); // Открываем файл для чтения в бинарном режиме
+    FILE* file = fopen(zavod, "rb"); // Открываем файл для чтения
     if (file == NULL) {
         perror("Ошибка открытия файла");
         return;
