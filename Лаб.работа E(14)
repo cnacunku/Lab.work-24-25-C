@@ -1,0 +1,102 @@
+#define _CRT_SECURE_NO_WARNINGS
+#define N 666
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+
+double* full_elements(double* ptr_array, int n)
+{
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < n; i++)
+		ptr_array[i] = -50 + rand() % 101 + rand() / (double)RAND_MAX;
+}
+
+int put_elements(double* ptr_array, int n)
+{
+	for (int i = 0;i < n;i++)
+		printf("\n a[%d]= %.1f", i, ptr_array[i]);
+}
+
+double* calc_elements(double* ptr_array, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		ptr_array[i] = ceil(ptr_array[i]);
+	}
+}
+
+double sum_elements(double* ptr_array, int begin, int end)
+{
+	double summa = 0;
+	for (int i = begin;i <= end;i++)
+	{
+		summa += ptr_array[i];
+	}
+	printf("Сумма от %d до %d индекса равна > %.f", begin, end, summa);
+}
+
+int find_element(double* ptr_array, int n, double element)
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (ptr_array[i] == element)
+		{
+			printf("Элемент был найден на %d индексе\n", i);
+			return i; 
+		}
+	}
+	printf("Элемент не найден\n");
+	return -1;
+}
+
+double summa_chetnih_elementov_menishe_A(double* ptr_array, int n, double A)
+{
+	double summma = 0;
+	for (int i = 0; i < n; i += 2) 
+	{
+		if (ptr_array[i] < A)
+		{
+			summma += ptr_array[i];
+		}
+	}
+	return summma;
+}
+
+
+int main()
+{
+	setlocale(LC_CTYPE, "RUS");
+	
+	double array[N], element,A;
+	int size,begin,end;
+
+	printf("Введите размер массива > ");
+	scanf("%d", &size);
+
+	full_elements(array, size);
+	
+	put_elements(array, size);printf("\n");
+	printf("Начальный массив\n");
+
+	calc_elements(array, size);
+
+	put_elements(array, size);printf("\n");
+	printf("Обработанный массив\n");
+
+	printf("\nНачальный индекс суммы: ");
+	scanf("%d", &begin);
+	printf("Конечный индекс суммы: ");
+	scanf("%d", &end);
+	sum_elements(array,begin,end);
+	
+	printf("\n\nЭлемент, который нужно найти: ");
+	scanf("%lf", &element);
+
+	find_element(array, size, element);
+
+	printf("\nЗначение A: ");
+	scanf("%lf", &A);
+	printf("Сумма значений меньше %.1f на четных позициях равна: %.1f\n", A, summa_chetnih_elementov_menishe_A(array, size, A));
+}
