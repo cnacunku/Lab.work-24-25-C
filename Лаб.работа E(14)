@@ -11,12 +11,14 @@ double* full_elements(double* ptr_array, int n)
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < n; i++)
 		ptr_array[i] = -50 + rand() % 101 + rand() / (double)RAND_MAX;
+	return ptr_array;
 }
 
-int put_elements(double* ptr_array, int n)
+void put_elements(double* ptr_array, int n)
 {
 	for (int i = 0;i < n;i++)
 		printf("\n a[%d]= %.1f", i, ptr_array[i]);
+			return 0;
 }
 
 double* calc_elements(double* ptr_array, int n)
@@ -25,6 +27,7 @@ double* calc_elements(double* ptr_array, int n)
 	{
 		ptr_array[i] = ceil(ptr_array[i]);
 	}
+	return ptr_array;
 }
 
 double sum_elements(double* ptr_array, int begin, int end)
@@ -34,7 +37,7 @@ double sum_elements(double* ptr_array, int begin, int end)
 	{
 		summa += ptr_array[i];
 	}
-	printf("Сумма от %d до %d индекса равна > %.f", begin, end, summa);
+	return summa;
 }
 
 int find_element(double* ptr_array, int n, double element)
@@ -43,11 +46,9 @@ int find_element(double* ptr_array, int n, double element)
 	{
 		if (ptr_array[i] == element)
 		{
-			printf("Элемент был найден на %d индексе\n", i);
 			return i; 
 		}
 	}
-	printf("Элемент не найден\n");
 	return -1;
 }
 
@@ -69,7 +70,7 @@ int main()
 {
 	setlocale(LC_CTYPE, "RUS");
 	
-	double array[N], element,A;
+	double array[N], element,A,summa;
 	int size,begin,end;
 
 	printf("Введите размер массива > ");
@@ -89,12 +90,20 @@ int main()
 	scanf("%d", &begin);
 	printf("Конечный индекс суммы: ");
 	scanf("%d", &end);
-	sum_elements(array,begin,end);
+	printf("Сумма от %d до %d индекса равна > %.f", begin, end, sum_elements(array, begin, end));
 	
 	printf("\n\nЭлемент, который нужно найти: ");
 	scanf("%lf", &element);
 
-	find_element(array, size, element);
+	int por = find_element(array, size, element);
+	if (find_element(array, size, element) == -1) {
+		printf("Элемент не найден\n");
+	}
+	else {
+		printf("Элемент был найден на %d индексе\n", por);
+	}
+
+	
 
 	printf("\nЗначение A: ");
 	scanf("%lf", &A);
