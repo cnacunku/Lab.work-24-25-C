@@ -20,9 +20,10 @@ void put_point(Point b) {
 
 float dist(Point z, Point w) {
 	float dek = sqrt(pow(w.x - z.x, 2) + pow(w.y - z.y, 2));
+		return dek;
 }
 
-float ser_otr(Point z, Point w) {
+void ser_otr(Point z, Point w) {
 	Point m;
 	m.name = 'M';
 	m.x = ((z.x + w.x) / 2);
@@ -39,7 +40,7 @@ int main()
 	w.name = 'W'; w.x = -5, w.y = -3;
 
 	put_point(b);
-	
+
 	printf("\n\nДекартовое расстояние между точками %c и %c > %f", z.name, w.name, dist(z, w));
 
 	ser_otr(z, w);
