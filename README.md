@@ -1,49 +1,44 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <stdio.h>
-#include <locale.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <math.h>
+Задание 2. Напишите программу, которая выводит на экран текущее время. 
+Пояснение к решению
 
-struct point {
-	float x;
-	float y;
-	char name;
-};
+Для решения этой задачи следует использовать функцию localtime(), которая возвращает указатель на структуру типа tm, описанную в time.h, как:
 
-typedef struct point Point;
+struct tm {
 
-void put_point(Point b) {
+        int tm_sec;     /* секунды - [0,59] */
 
-	printf("point %c (%.1f,%.1f)", b.name, b.x, b.y);
-}
+        int tm_min;     /* минуты - [0,59] */
 
-float dist(Point z, Point w) {
-	float dek = sqrt(pow(w.x - z.x, 2) + pow(w.y - z.y, 2));
-		return dek;
-}
+        int tm_hour;    /* часы - [0,23] */
 
-void ser_otr(Point z, Point w) {
-	Point m;
-	m.name = 'M';
-	m.x = ((z.x + w.x) / 2);
-	m.y = ((z.y + w.y) / 2);
-}
+        int tm_mday;    /* день - [1,31] */
 
-int main()
-{
-	setlocale(LC_CTYPE, "RUS");
-	Point b, a, z, w, m;
-	a = (Point){ 1.f,2.f,'A' };// Инизиализация структуры
-	b.name = 'B'; b.x = 5, b.y = -3;// Инизиализация полей структуры
-	z.name = 'Z'; z.x = 3, z.y = -4;
-	w.name = 'W'; w.x = -5, w.y = -3;
+        int tm_mon;     /* месяц - [0,11] */
 
-	put_point(b);
+        int tm_year;    /* год от 1900 */
 
-	printf("\n\nДекартовое расстояние между точками %c и %c > %f", z.name, w.name, dist(z, w));
+        int tm_wday;    /* день недели с воскресенья - [0,6] */
 
-	ser_otr(z, w);
-	put_point(m);
-}
+        int tm_yday;    /* номер дня с 1 января - [0,365] */
 
+        int tm_isdst;   /* флаг летнего времени устанавливается >0, если <=0, то информация недоступна*/
+
+        };
+
+Поскольку typedef отсутствует, то необходимо полное объявление. Так указатель на структуру tm объявляется как:
+
+struct tm *mytime;
+
+В качестве аргумента функции localtime() передается указатель на переменную специального типа time_t, который определен в time.h как long или int в зависимости от системы.
+
+time_t t;
+
+Значение переменной t может быть получено функцией time(), которая возвращает текущее календарное время системы. Функцию time() можно вызывать либо с нулевым указателем:
+
+t = time(NULL);
+
+либо с указателем на переменную типа time_t:
+
+time(&t);
+
+В таком случае по адресу переменной, указатель на которую передан в функцию будет размещено календарное время значением типа time_t.
