@@ -67,7 +67,8 @@ int main()
 	time_t t;
 	t = time(NULL);
 	mytime = localtime(&t);
-	printf("\n\nМосковское время %02d:%02d:%02d \n", mytime->tm_hour, mytime->tm_min, mytime->tm_sec);
+	printf("\n\nМосковское время %02d:%02d:%02d", mytime->tm_hour, mytime->tm_min, mytime->tm_sec);
+
+	char* RIM_CIF[] = { "I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"};
+	printf("\n\nМесяц %s и год %d", RIM_CIF[mytime->tm_mon], mytime->tm_year + 1900);
 }
-Задание 2.2 Добавьте вывод следующей информации:
-10. Месяц (римская цифра) и год (число)
