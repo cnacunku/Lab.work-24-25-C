@@ -69,3 +69,5 @@ int main()
 	mytime = localtime(&t);
 	printf("\n\nМосковское время %02d:%02d:%02d \n", mytime->tm_hour, mytime->tm_min, mytime->tm_sec);
 }
+Задание 2.2 Добавьте вывод следующей информации:
+10. Месяц (римская цифра) и год (число)
