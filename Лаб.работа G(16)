@@ -30,14 +30,6 @@ void put_elements(double* ptr_array, int size)
 	return 0;
 }
 
-void put_elements_k(double* ptr_array, int k)
-{
-	for (int i = 0; i < k; i++)
-		printf("\n a[%d]= %.1f", i, ptr_array[k]);
-	return 0;
-}
-
-
 double* vtoroe_zadanie(double* ptr_array, int size)
 {
 	srand((unsigned)time(NULL));
@@ -46,15 +38,15 @@ double* vtoroe_zadanie(double* ptr_array, int size)
 	return ptr_array;
 }
 
-void udal_otric(double* ptr_array, int size)
+void udal_otric(double* ptr_array, int *size)
 {
 	int k = 0;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < *size; i++)
 	{
 		if (ptr_array[i] >= 0)
 			ptr_array[k++] = ptr_array[i];
 	}
-	size=k;
+	*size=k;
 }
 
 int main()
@@ -90,7 +82,7 @@ int main()
 
 	put_elements(ptr_array, size); printf("\n");
 	
-	udal_otric(ptr_array, size);
+	udal_otric(ptr_array, &size);
 
-	put_elements_k(ptr_array, k); printf("\n");
+	put_elements(ptr_array, size); printf("\n");
 }
