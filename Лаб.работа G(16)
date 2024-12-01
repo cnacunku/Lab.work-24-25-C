@@ -115,3 +115,106 @@ int main()
 
 	free(ptr_array);
 }
+
+==================================ДОМАШНЕЕ ЗАДАНИЕ===========================================
+#include <stdio.h>
+#include <locale.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <math.h>
+#include <time.h>
+double* sozdanie(int* size)
+{
+    *size = 10 + rand() % 41;
+    double* array = (double*)malloc(*size * sizeof(double));
+    for (int i = 0; i < *size; i++)
+    {
+        array[i] = -99 + rand() % 199;
+    }
+    return array;
+}
+
+double* MASSIV(double* a, int size_a, double* b, int size_b, double* c, int size_c, int* size_d)
+{
+    int vrem_size_d = size_a + size_b + size_c;
+    double* array_vse = (double*)malloc(vrem_size_d * sizeof(double));
+    int index = 0;
+
+    for (int i = 0; i < size_a; i++)
+    {
+        array_vse[index++] = a[i];
+    }
+    for (int i = 0; i < size_b; i++)
+    {
+        array_vse[index++] = b[i];
+    }
+    for (int i = 0; i < size_c; i++)
+    {
+        array_vse[index++] = c[i];
+    }
+
+    int last_otrc_index = 0;
+    for (int i = 0; i < vrem_size_d; i++)
+    {
+        if (array_vse[i] < 0)
+        {
+            last_otrc_index = i;
+        }
+    }
+
+    *size_d = last_otrc_index;
+    double* array_d = (double*)malloc(*size_d * sizeof(double));
+    for (int i = 0; i < *size_d; i++)
+    {
+        array_d[i] = array_vse[i];
+    }
+  
+    free(array_vse);
+
+    for (int i = 0; i < *size_d / 2; i++)
+    {
+        double temp = array_d[i];
+        array_d[i] = array_d[*size_d - 1 - i];
+        array_d[*size_d - 1 - i] = temp;
+    }
+    return array_d;
+}
+
+void put_array(double* array, int size)
+{
+    for (int i = 0; i < size; i++) 
+    {
+        printf("%.f ", array[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    srand((unsigned)time(NULL));
+
+    int size_a, size_b, size_c, size_d;
+    double* array_a = sozdanie(&size_a);
+    double* array_b = sozdanie(&size_b);
+    double* array_c = sozdanie(&size_c);
+
+    printf("Массив A: ");
+    put_array(array_a, size_a); printf("\n\n");
+
+    printf("Массив B: ");
+    put_array(array_b, size_b); printf("\n\n");
+
+    printf("Массив C: ");
+    put_array(array_c, size_c); printf("\n\n");
+  
+    double* array_d = MASSIV(array_a, size_a, array_b, size_b, array_c, size_c, &size_d);
+
+    printf("Новый массив D (обратный порядок A,B,C до последнего отрицательного элемента): ");
+    put_array(array_d, size_d);
+    printf("\n\n");
+    
+    free(array_d);
+    free(array_a);
+    free(array_b);
+    free(array_c);
+}
