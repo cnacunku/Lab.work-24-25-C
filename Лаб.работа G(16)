@@ -38,7 +38,7 @@ double* vtoroe_zadanie(double* ptr_array, int size)
 	return ptr_array;
 }
 
-void udal_otric(double* ptr_array, int *size)
+void udal_otric(double* ptr_array, int* size)
 {
 	int k = 0;
 	for (int i = 0; i < *size; i++)
@@ -46,7 +46,30 @@ void udal_otric(double* ptr_array, int *size)
 		if (ptr_array[i] >= 0)
 			ptr_array[k++] = ptr_array[i];
 	}
-	*size=k;
+	*size = k;
+}
+
+double* insert(double* ptr_array, int* size, int index, double num)
+{
+	*size += 1;
+	ptr_array = (double*)realloc(ptr_array, (*size) * sizeof(double));
+	for (int i = *size - 1; i > index; i--)
+	{
+		ptr_array[i] = ptr_array[i - 1];
+	}
+	ptr_array[index] = num;
+	return ptr_array;
+}
+
+double* vstavka_polozhi(double* ptr_array, int* size)
+{
+	for (int i = 0; i < *size; i++) {
+		if (ptr_array[i] > 0) {
+			ptr_array = insert(ptr_array, size, i + 1, -999);
+			i++; 
+		}
+	}
+	return ptr_array;
 }
 
 int main()
@@ -54,9 +77,9 @@ int main()
 	setlocale(LC_CTYPE, "RUS");
 	double* ptr_array;
 
-	int size;
+	int size,index;
 	printf("Размер массива > ");
-	scanf("%d",&size);
+	scanf("%d", &size);
 
 	ptr_array = (double*)malloc(size * sizeof(double));
 
@@ -67,7 +90,7 @@ int main()
 		return -1;
 	}
 	full_elements(ptr_array, size);
-
+		
 	put_elements(ptr_array, size); printf("\n");
 	printf("Начальный массив\n");
 
@@ -76,13 +99,19 @@ int main()
 	put_elements(ptr_array, size); printf("\n");
 	printf("Обработанный массив\n");
 
-	free(ptr_array);
-
 	vtoroe_zadanie(ptr_array, size);
 
 	put_elements(ptr_array, size); printf("\n");
-	
+	printf("V2 начальный массив\n");
+
 	udal_otric(ptr_array, &size);
 
 	put_elements(ptr_array, size); printf("\n");
+	printf("V2 Обработанный массив\n");
+	
+	ptr_array = vstavka_polozhi(ptr_array, &size);
+	put_elements(ptr_array, size); printf("\n");
+	printf("Массив с элементом '-999' после положительного числа\n");
+
+	free(ptr_array);
 }
