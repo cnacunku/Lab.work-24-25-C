@@ -239,7 +239,7 @@ double* sozdanie(int* size)
 double* MASSIV(double* a, int size_a, double* b, int size_b, double* c, int size_c)
 {
     int size_d = size_a + size_b + size_c;
-    double* array_vse = (double*)realloc(array, size_d * sizeof(double));
+    double* array_vse = (double*)malloc(size_d * sizeof(double));
     int index = 0;
 
     for (int i = 0; i < size_a; i++)
