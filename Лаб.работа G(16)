@@ -262,17 +262,14 @@ double* MASSIV(double* a, int size_a, double* b, int size_b, double* c, int size
         {
             last_otrc_index = i;
         }
-        size_d = last_otrc_index;
     }
-    return size_d;
+    return size_d = last_otrc_index;
 
     double* array_d = (double*)realloc(array_vse,size_d * sizeof(double));
     for (int i = 0; i < size_d; i++)
     {
         array_d[i] = array_vse[i];
     }
-
-    free(array_vse);
 
     for (int i = 0; i < size_d / 2; i++)
     {
