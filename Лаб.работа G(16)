@@ -8,7 +8,6 @@
 
 double* full_elements(double* ptr_array, int n)
 {
-	srand((unsigned)time(NULL));
 	for (int i = 0; i < n; i++)
 		ptr_array[i] = -50 + rand() % 101 + rand() / (double)RAND_MAX;
 	return ptr_array;
@@ -27,18 +26,16 @@ void put_elements(double* ptr_array, int size)
 {
 	for (int i = 0; i < size; i++)
 		printf("\n a[%d]= %.1f", i, ptr_array[i]);
-	return 0;
 }
 
 double* vtoroe_zadanie(double* ptr_array, int size)
 {
-	srand((unsigned)time(NULL));
 	for (int i = 0; i < size; i++)
 		ptr_array[i] = -1 + rand() % 2 + rand() / (double)RAND_MAX;
 	return ptr_array;
 }
 
-void udal_otric(double* ptr_array, int* size)
+ int udal_otric(double* ptr_array, int* size)
 {
 	int k = 0;
 	for (int i = 0; i < *size; i++)
@@ -47,6 +44,7 @@ void udal_otric(double* ptr_array, int* size)
 			ptr_array[k++] = ptr_array[i];
 	}
 	*size = k;
+	return *size;
 }
 
 double* insert(double* ptr_array, int* size, int index, double num)
@@ -75,6 +73,8 @@ double* vstavka_polozhi(double* ptr_array, int* size)
 int main()
 {
 	setlocale(LC_CTYPE, "RUS");
+	srand((unsigned)time(NULL));
+
 	double* ptr_array;
 
 	int size,index;
@@ -115,7 +115,6 @@ int main()
 
 	free(ptr_array);
 }
-
 ==================================ДОМАШНЕЕ ЗАДАНИЕ===========================================
 #include <stdio.h>
 #include <locale.h>
