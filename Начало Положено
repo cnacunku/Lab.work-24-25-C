@@ -4,29 +4,67 @@
 #include <locale.h>
 #include <string.h>
 
-#define MAX_PERSONS 100
+#define MAX 100
 
-struct date {
-	int day;
-	int month;
-	int year;
+struct date
+{
+    int day;
+    int month;
+    int year;
 };
-struct person {
-	char fam[20];
-	char im[20];
-	char ot[20];
-	struct date rozdenie; 
-	int sr_vrst;
-	char specialty[50];
-	float sr_zp;
-	int opit; // Стаж в годах
-};
-struct factory {
-	int naz_factory;
-	struct person persons[100];
-	int col_person;		
-};
-int dim(int m, int y) {
+
+struct person
+{
+    char fam[20];
+    char im[20];
+    char ot[20];
+    int sr_vrst;
+    char specialty[50];
+    float sr_zp;
+    int opit; // Стаж в годах
+};  typedef person;
+
+struct factory
+{
+    int naz_factory;
+    struct person persons[MAX];
+    int col_person;
+}   typedef factory;
+
+/* Объявление функций*/
+
+int dim(int m, int y);
+int validate_date(int d, int m, int y);
+void add_factory(factory* factories);
+void add_persons(struct person* p);
+void print_factory(factory factory);
+void create_factory_file(const char* filename);
+void clear_factory_file(const char* filename);
+void read_factory_file(const char* filename);
+
+int main()
+{
+
+    
+    factory factories;
+    char filename[50];
+
+    add_factory(&factories);
+
+    printf("Введите имя файла для сохранения данных: ");
+    scanf("%s", filename);
+
+    create_factory_file(filename);
+    read_factory_file(filename);
+    
+    print_factory(factories);
+    
+}
+
+/* Функции */
+
+int dim(int m, int y)
+{
     if (m == 1 || m == 3 || m == 5 || m == 7 || m == 8 || m == 10 || m == 12)
         return 31;
     else if (m == 4 || m == 6 || m == 9 || m == 11)
@@ -37,35 +75,49 @@ int dim(int m, int y) {
         return 28;
 }
 
-int validate_date(int d, int m, int y) {
-    if (m < 1 || m > 12) {
+int validate_date(int d, int m, int y)
+{
+    if (m < 1 || m > 12)
+    {
         printf("Несуществующий месяц\n");
         return 0;
     }
-    if (d < 1 || d > dim(m, y)) {
+    if (d < 1 || d > dim(m, y))
+    {
         printf("Несуществующий день\n");
         return 0;
     }
     return 1; // Дата корректна
 }
-void vvod_persons(struct person* p) { // ввод данных
-    printf("Введите фамилию, имя, отчество: ");
-    scanf("%s %s %s", p->fam, p->im, p->ot);
-    while (1) {
-        printf("Введите дату рождения (день месяц год): ");
-        scanf("%d %d %d", &p->rozdenie.day, &p->rozdenie.month, &p->rozdenie.year);
 
-        if (validate_date(p->rozdenie.day, p->rozdenie.month, p->rozdenie.year)) {
-            break; // Если дата корректна, выходим из цикла
-        }
-        else {
-            printf("Попробуйте снова.\n");
-        }
+void add_factory(factory* factories)
+{
+    printf("Введите номер завода: ");
+    scanf("%d", &factories->naz_factory);
+
+    printf("Введите количество работников(Максимум %d): ", MAX);
+    scanf("%d", &factories->col_person);
+    if (factories->col_person > MAX)
+    {
+        printf("Ошибка: количество работников не может превышать %d.\n", MAX);
     }
-    while (1) {
+
+    for (int i = 0; i < factories->col_person; i++)
+    {
+        printf("\nВведите данные для работника %d:\n", i + 1);
+        add_persons(&factories->persons[i]);
+    }
+}
+
+void add_persons(struct person* person)
+{
+    printf("Введите фамилию, имя, отчество: ");
+    scanf("%s %s %s", person->fam, person->im, person->ot);
+    while (1)
+    {
         printf("Введите средний возраст: ");
-        scanf("%d", &p->sr_vrst);
-        if (p->sr_vrst < 0) {
+        scanf("%d", &person->sr_vrst);
+        if (person->sr_vrst < 0) {
             printf("Ошибка: средний возраст не может быть отрицательным. Попробуйте снова.\n");
         }
         else {
@@ -73,21 +125,23 @@ void vvod_persons(struct person* p) { // ввод данных
         }
     }
     printf("Введите специальность: ");
-    scanf("%s", p->specialty);
-    while (1) {
+    scanf("%s", person->specialty);
+    while (1)
+    {
         printf("Введите средний оклад: ");
-        scanf("%f", &p->sr_zp);
-        if (p->sr_zp < 0) {
+        scanf("%f", &person->sr_zp);
+        if (person->sr_zp < 0) {
             printf("Ошибка: средний оклад не может быть отрицательным. Попробуйте снова.\n");
         }
         else {
             break;
         }
     }
-    while (1) {
+    while (1)
+    {
         printf("Введите стаж (в годах): ");
-        scanf("%d", &p->opit);
-        if (p->opit < 0) {
+        scanf("%d", &person->opit);
+        if (person->opit < 0) {
             printf("Ошибка: стаж не может быть отрицательным. Попробуйте снова.\n");
         }
         else {
@@ -95,79 +149,66 @@ void vvod_persons(struct person* p) { // ввод данных
         }
     }
 }
-void factory_file(struct factory* f, const char* zavod) {
-    FILE* file = fopen(zavod, "ab");// Режим "ab" означает, что файл открывается для записи в бинарном режиме (b) и данные будут добавлены в конец файла (a), если файл уже существует. Если файл не существует, он будет создан.//
-    if (file == NULL) {
-        perror("Ошибка открытия файла");// Если file равен NULL, это означает, что произошла ошибка при открытии файла. В этом случае функция perror выводит сообщение об ошибке, и выполнение функции завершается с помощью return.//
+
+void print_factory(factory factory)
+{
+    for (int i = 0; i < factory.col_person; i++) {
+        printf("Работник %d :\n", i + 1);
+        printf("Фамилия: %s\n", factory.persons[i].fam);
+        printf("Имя: %s\n", factory.persons[i].im);
+        printf("Отчество: %s\n", factory.persons[i].ot);
+        printf("Средний возраст: %d\n", factory.persons[i].sr_vrst);
+        printf("Специальность: %s\n", factory.persons[i].specialty);
+        printf("Средний оклад: %.2f\n", factory.persons[i].sr_zp);
+        printf("Стаж: %d лет\n", factory.persons[i].opit);
+    }
+}
+
+void create_factory_file(const char* filename)
+{
+    FILE* file = fopen(filename, "w");
+    if (file == NULL)
+    {
+        perror("Ошибка создания файла");
         return;
     }
-    fwrite(f, sizeof(struct factory), 1, file);// Функция fwrite используется для записи данных в файл.//
-    fclose(file);
 }
-void read_factory_file(const char* zavod) {
-    FILE* file = fopen(zavod, "rb"); // Открываем файл для чтения
-    if (file == NULL) {
-        perror("Ошибка открытия файла");
-        return;
-    }
-    struct factory f;
-    while (fread(&f, sizeof(struct factory), 1, file) == 1) { // Читаем данные из файла
-        printf("Номер завода: %d\n", f.naz_factory);
-        printf("Количество работников: %d\n", f.col_person);
-        for (int i = 0; i < f.col_person; i++) {
-            printf("Работник %d:\n", i + 1);
-            printf("Фамилия: %s\n", f.persons[i].fam);
-            printf("Имя: %s\n", f.persons[i].im);
-            printf("Отчество: %s\n", f.persons[i].ot);
-            printf("Дата рождения: %02d.%02d.%04d\n", f.persons[i].rozdenie.day, f.persons[i].rozdenie.month, f.persons[i].rozdenie.year);
-            printf("Средний возраст: %d\n", f.persons[i].sr_vrst);
-            printf("Специальность: %s\n", f.persons[i].specialty);
-            printf("Средний оклад: %.2f\n", f.persons[i].sr_zp);
-            printf("Стаж: %d лет\n", f.persons[i].opit);
-            printf("\n");
-        }
-    }
-    fclose(file);
-}
-void clear_factory_file(const char* zavod) {
-    FILE* file = fopen(zavod, "wb"); // Открываем файл в режиме записи, что очищает его
+
+void clear_factory_file(const char* filename)
+{
+    FILE* file = fopen(filename, "w"); 
     if (file == NULL) {
         perror("Ошибка открытия файла для очистки");
         return;
     }
     fclose(file); // Закрываем файл
 }
-int main()
+
+void read_factory_file(const char* filename, factory* factories)
 {
-    setlocale(LC_CTYPE, "RUS");
-    struct factory f;// объявляет переменную f, которая является экземпляром структуры factory, и выделяет необходимую память для хранения данных, описанных в структуре.
-    f.col_person = 0;
-
-    clear_factory_file("factories.dat");
-
-    printf("Введите номер завода: ");
-    scanf("%d", &f.naz_factory);
-
-    printf("Введите количество работников(Максимум %d): ",MAX_PERSONS);
-    scanf("%d", &f.col_person);
-    if (f.col_person > MAX_PERSONS) {
-        printf("Ошибка: количество работников не может превышать %d.\n", MAX_PERSONS);
-        return 1;
+    FILE* file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        perror("Ошибка чтения файла");
+        return;
     }
 
-    for (int i = 0; i < f.col_person; i++) {
-        printf("\nВведите данные для работника %d:\n", i + 1);
-        vvod_persons(&f.persons[i]);
+    // Считываем номер завода
+    fscanf(file, "%d", &factories->naz_factory);
+
+    // Считываем данные работников
+    factories->col_person = 0; // Обнуляем количество работников перед считыванием
+    while (fscanf(file, "%s %s %s %d %s %f %d",
+        factories->persons[factories->col_person].fam,
+        factories->persons[factories->col_person].im,
+        factories->persons[factories->col_person].ot,
+        &factories->persons[factories->col_person].sr_vrst,
+        factories->persons[factories->col_person].specialty,
+        &factories->persons[factories->col_person].sr_zp,
+        &factories->persons[factories->col_person].opit) == 7)
+    {
+        factories->col_person++;
     }
 
-    // Сохранение данных в файл
-    factory_file(&f, "factories.dat");
-    printf("\nДанные успешно сохранены в файл.\n");
-    // Чтение данных
-    printf("\nЧтение данных из файла:\n");
-    read_factory_file("factories.dat");
-
-    return 0;
-    /*Реализовано: 1✓ 2✓ 3  4  6 *
-                   1✓ 2  3✓ 4  5*/ 
+    fclose(file); // Закрываем файл
 }
