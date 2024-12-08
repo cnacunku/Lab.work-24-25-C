@@ -40,12 +40,12 @@ void add_persons(struct person* p);
 void print_factory(factory factory);
 void create_factory_file(const char* filename);
 void clear_factory_file(const char* filename);
-void read_factory_file(const char* filename);
+void read_factory_file(const char* filename, factory* factories);
 
 int main()
 {
 
-    
+
     factory factories;
     char filename[50];
 
@@ -55,10 +55,10 @@ int main()
     scanf("%s", filename);
 
     create_factory_file(filename);
-    read_factory_file(filename);
-    
+    read_factory_file(filename,&factories);
+
     print_factory(factories);
-    
+
 }
 
 /* Функции */
@@ -176,7 +176,7 @@ void create_factory_file(const char* filename)
 
 void clear_factory_file(const char* filename)
 {
-    FILE* file = fopen(filename, "w"); 
+    FILE* file = fopen(filename, "w");
     if (file == NULL) {
         perror("Ошибка открытия файла для очистки");
         return;
