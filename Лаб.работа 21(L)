@@ -1,0 +1,84 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
+#include <time.h>
+#define SIZE 3
+
+typedef struct Reis {
+	int nomer_reisa;
+	int chas_vileta, minuta_vileta;
+	int chas_prileta, minuta_prileta;
+	char napravlenie[40];
+	char marka_samoleta[40];
+	double rasstoyanie;
+}; typedef Reis_t;
+
+void fill_reis_array(Reis_t reisi[], int size);
+double dlit_poleta(int chas_vileta, int minuta_vileta, int chas_prileta, int minuta_prileta);
+void fill_array(Reis_t*, int size);
+void print_array(Reis_t*, int size);
+void print_reisi(Reis_t);
+
+int main() {
+    Reis_t reisi[SIZE];
+	int size;
+	printf("Введите size: ");
+	scanf("%d", &size);
+
+	fill_reis_array(&reisi[size], size);
+}
+void fill_reis_array(Reis_t reisi[], int size) {
+    srand(time(NULL));
+    for (int i = 0; i < size; i++) {
+        reisi[i].nomer_reisa = getRandomNumber(1, 10);
+		reisi[i].chas_vileta = getRandomNumber(0, 23);reisi[i].minuta_vileta = getRandomNumber(0, 59);
+		reisi[i].chas_prileta = getRandomNumber(0, 23);reisi[i].minuta_prileta = getRandomNumber(0, 59);
+		strcpy(reisi[i].napravlenie, getRandomString(40));
+		strcpy(reisi[i].marka_samoleta, getRandomString(40));
+		reisi[i].rasstoyanie = getRandomNumber(200, 1000);
+    }
+}
+
+double dlit_poleta(int chas_vileta, int minuta_vileta, int chas_prileta, int minuta_prileta) {
+	int n_poleta_minut = chas_vileta * 60 + minuta_vileta;
+	int k_poleta_minut = chas_prileta * 60 + minuta_prileta;
+	return k_poleta_minut - n_poleta_minut;
+}
+
+void fill_array(Reis_t* reisi, int size) {
+	for (int i = 0; i < SIZE; i++) {
+		printf("Введите данные рейса %d :\n", i + 1);
+		printf("Номер рейса : ");
+		scanf("%d	", reisi[i].nomer_reisa);
+		printf("Время вылета (чч мм) : ");
+		scanf("%d:%d", &reisi[i].chas_vileta, &reisi[i].t[i].minuta_vileta);
+		printf("Время прилета (чч:мм) : ");
+		scanf("%d:%d", &reisi[i].chas_prileta, &reisi[i].minuta_prileta);
+		printf("Направление : ");
+		scanf("%s", reisi[i].napravlenie);
+		printf("Марка самолёта : ");
+		scanf("%s", reisi[i].marka_samoleta);
+		printf("Расстояние : ");
+		scanf("%lf", &reisi[i].rasstoyanie);
+		printf("\n");
+	}
+}
+
+void print_array(Reis_t* reisi, int size) {
+	for (int i = 0; i < SIZE; i++) {
+		printf("Номер рейса: %d\n", reisi[i].nomer_reisa);
+		printf("Время вылета: %02d:%02d\n", reisi[i].chas_vileta, reisi[i].minuta_vileta);
+		printf("Время прилета: %02d:%02d\n", reisi[i].chas_prileta, reisi[i].minuta_prileta);
+		printf("Направление: %s\n", reisi[i].napravlenie);
+		printf("Марка самолёта: %s\n", reisi[i].marka_samoleta);
+		printf("Расстояние: %.2lf\n", reisi[i].rasstoyanie);
+	}
+}
+
+void print_reisi(Reis_t reisi) {
+	for (int i = 0; i < SIZE; i++) {
+		printf("| %d || %d:%d || %d:%d || %s || %s || %f |", reisi[i].nomer_reisa, reisi[i].chas_vileta, reisi[i].minuta_vileta, reisi[i].chas_prileta, reisi[i].minuta_prileta, reisi[i].napravlenie, reisi[i].marka_samoleta, reisi[i].rasstoyanie);
+	}
+}
