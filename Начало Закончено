@@ -26,18 +26,18 @@ struct factory {
 /* Объявление функций*/
 
 void add_factory(factory* factories);
-void add_persons(struct person* p);
+void add_persons(struct person* person);
 void print_factory(factory factory);
 void create_factory_file(const char* filename, factory* factories);
 void clear_factory_file(const char* filename);
 void read_factory_file(const char* filename, factory* factories);
-void edit_factory(factory* factories, const char* filename);
+void edit_factory(factory* factories,const char* filename);
 float calculate_sr_oklad(factory* factories);
 void display_menu();
 
 int main() {
     factory factories;
-    char filename[50];
+    char filename[50]; 
     int choice;
 
     factories.col_person = 0;
@@ -84,7 +84,7 @@ int main() {
             printf("Файл очищен: %s\n", filename);
             break;
         case 8:
-            edit_factory(&factories, filename);
+            edit_factory(&factories,filename);
             break;
         case 9:
             printf("Выход из программы.\n");
@@ -166,7 +166,7 @@ void print_factory(factory factory) {
         printf("Специальность: %s\n", factory.persons[i].specialty);
         printf("Средний оклад: %.2f\n", factory.persons[i].zp);
         printf("Стаж: %d лет\n\n", factory.persons[i].opit);
-    }
+    }   
 }
 
 void create_factory_file(const char* filename, factory* factories) {
@@ -183,7 +183,7 @@ void create_factory_file(const char* filename, factory* factories) {
     }
 
     fprintf(file, "%d\n", factories->naz_factory);
-    fprintf(file, "%d\n", factories->col_person);
+    fprintf(file, "%d\n", factories->col_person); 
 
     for (int i = 0; i < factories->col_person; i++) {
         fprintf(file, "%s %s %s %d %s %.2f %d\n",
@@ -196,7 +196,7 @@ void create_factory_file(const char* filename, factory* factories) {
             factories->persons[i].opit);
     }
 
-    fclose(file);
+    fclose(file); 
 }
 
 void clear_factory_file(const char* filename) {
@@ -205,7 +205,7 @@ void clear_factory_file(const char* filename) {
         perror("Ошибка открытия файла для очистки");
         return;
     }
-    fclose(file);
+    fclose(file); 
 }
 
 void read_factory_file(const char* filename, factory* factories) {
@@ -239,7 +239,7 @@ void read_factory_file(const char* filename, factory* factories) {
         factories->col_person++;
     }
     factories->sr_oklad = calculate_sr_oklad(factories);
-    fclose(file);
+    fclose(file); 
 }
 
 void edit_factory(factory* factories, const char* filename) {
