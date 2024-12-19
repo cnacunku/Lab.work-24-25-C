@@ -26,7 +26,7 @@ struct factory {
 /* Объявление функций*/
 
 void add_factory(factory* factories);
-void add_persons(struct person* p);
+void add_persons(struct person* person);
 void print_factory(factory factory);
 void create_factory_file(const char* filename, factory* factories);
 void clear_factory_file(const char* filename);
