@@ -188,7 +188,7 @@ void create_factory_file(const char* filename, Factory* factories,int factory_co
         fprintf(file, "%d\n", factories[i].naz_factory);
         fprintf(file, "%d\n", factories[i].col_person);
 
-        for (int j = 0; i < factories[i].col_person; i++) {
+        for (int j = 0; j < factories[i].col_person; j++) {
             fprintf(file, "%s %s %s %d %s %.2f %d\n",
                 factories[i].persons[j].fam,
                 factories[i].persons[j].im,
