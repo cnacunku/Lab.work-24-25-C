@@ -27,19 +27,19 @@ typedef struct factory Factory;
 
 /* Объявление функций*/
 
-void add_factory(Factory* factories, int* factory_count);
-void add_person(struct person* person);
-void print_factory(Factory factory, int index);
-void print_factories(Factory* factories, int factory_count);
-void create_factory_file(const char* filename, Factory* factories, int factory_count);
-void clear_factory_file(const char* filename);
-void read_factory_file(const char* filename, Factory* factories, int* factory_count);
-void edit_factory(Factory* factories, const char* filename, int factory_count);
-float calculate_sr_oklad(Factory* factories);
-void clear_factories(Factory* factories, int* factory_count);
-Factory* search_by_quantity_employees(Factory* factories, int factory_count, char* col_person);
-int compare_number_factory(const void* a, const void* b);
-void display_menu();
+void add_factory(Factory* factories, int* factory_count);                                       // Добавляет новый завод в массив заводов.
+void add_person(struct person* person);                                                         // Запрашивает и добавляет данные о новом работнике.
+void print_factory(Factory factory, int index);                                                 // Выводит информацию о заводе и его работниках.
+void print_factories(Factory* factories, int factory_count);                                    // Выводит информацию о всех заводах.
+void create_factory_file(const char* filename, Factory* factories, int factory_count);          // Сохраняет данные о заводах в файл.
+void clear_factory_file(const char* filename);                                                  // Очищает содержимое указанного файла.
+void read_factory_file(const char* filename, Factory* factories, int* factory_count);           // Загружает данные о заводах из файла.
+void edit_factory(Factory* factories, const char* filename, int factory_count);                 // Позволяет редактировать данные о заводе и его работниках.
+float calculate_sr_oklad(Factory* factories);                                                   // Вычисляет средний оклад работников завода.
+void clear_factories(Factory* factories, int* factory_count);                                   // Очищает данные о заводах.
+Factory* search_by_quantity_employees(Factory* factories, int factory_count, char* col_person); // Ищет завод по количеству работников.
+int compare_number_factory(const void* a, const void* b);                                       // Сравнивает два завода по их номерам.
+void display_menu();                                                                            // Выводит меню доступных операций.    
 
 int main() {
     Factory* factories = (Factory*)malloc(MAX * sizeof(Factory));
@@ -58,78 +58,79 @@ int main() {
 
         switch (choice) {
         case 1:
-            clear_factories(factories, &factory_count);
-            printf("Введите имя файла для загрузки данных: ");
-            scanf("%s", filename);
-            read_factory_file(filename, factories, &factory_count);
-            printf("Данные загружены из файла: %s\n", filename);
-            break;
+                clear_factories(factories, &factory_count);
+                printf("Введите имя файла для загрузки данных: ");
+                scanf("%s", filename);
+                read_factory_file(filename, factories, &factory_count);
+                printf("Данные загружены из файла: %s\n", filename);
+                break;
         case 2:
-            add_factory(factories, &factory_count);
-            break;
+                add_factory(factories, &factory_count);
+                break;
         case 3:
-            edit_factory(factories, filename, factory_count);
-            break;
+                edit_factory(factories, filename, factory_count);
+                break;
         case 4:
-            printf("Введите новое имя файла для сохранения данных: ");
-            scanf("%s", filename);
-            create_factory_file(filename, factories, factory_count);
-            printf("Данные сохранены в файл: %s\n", filename);
-            break;
+                printf("Введите новое имя файла для сохранения данных: ");
+                scanf("%s", filename);
+                create_factory_file(filename, factories, factory_count);
+                printf("Данные сохранены в файл: %s\n", filename);
+                break;
         case 5:
-            if (factory_count > 0) {
-                print_factories(factories, factory_count);
-            }
-            else {
-                printf("Нет данных для вывода.\n");
-            }
-            break;
-            printf("Сортировка записей еще не реализована.\n");
-            break;
+                if (factory_count > 0) {
+                    print_factories(factories, factory_count);
+                }
+                else {
+                    printf("Нет данных для вывода.\n");
+                }
+                break;
+                printf("Сортировка записей еще не реализована.\n");
+                break;
         case 6: {
-            int quantity;
-            printf("Введите количество работников для поиска: ");
-            scanf("%d", &quantity);
+                int quantity;
+                printf("Введите количество работников для поиска: ");
+                scanf("%d", &quantity);
   
-            Factory* found_factory = search_by_quantity_employees(factories, factory_count, quantity);
+                Factory* found_factory = search_by_quantity_employees(factories, factory_count, quantity);
     
-            if (found_factory != NULL) {
-                printf("Завод с количеством работников %d:\n", quantity);
-                print_factory(*found_factory, found_factory - factories); // Вычитание указателей в Си возвращает количество элементов между ними
-            }
-            else {
-                 printf("Завод с количеством работников %d не найден.\n", quantity);
-            }
-            break;
+                if (found_factory != NULL) {
+                    printf("Завод с количеством работников %d:\n", quantity);
+                    print_factory(*found_factory, found_factory - factories); // Вычитание указателей в Си возвращает количество элементов между ними
+                }
+                else {
+                    printf("Завод с количеством работников %d не найден.\n", quantity);
+                }
+                break;
         }
         case 7:
-            qsort(factories, factory_count, sizeof(Factory), compare_number_factory);
-            printf("Заводы отсортированы по номерам заводов.\n");
-            print_factories(factories, factory_count);
-            break;
+                qsort(factories, factory_count, sizeof(Factory), compare_number_factory);
+                printf("Заводы отсортированы по номерам заводов.\n");
+                print_factories(factories, factory_count);
+                break;
         case 8:
-            clear_factories(factories, &factory_count);
-            printf("Данные о заводах и работниках очищены.\n");
-            break;
+                clear_factories(factories, &factory_count);
+                printf("Данные о заводах и работниках очищены.\n");
+                break;
         case 9:
-            printf("Введите имя файла для очистки: ");
-            scanf("%s", filename);
-            clear_factory_file(filename);
-            printf("Файл очищен: %s\n", filename);
-            break;
+                printf("Введите имя файла для очистки: ");
+                scanf("%s", filename);
+                clear_factory_file(filename);
+                printf("Файл очищен: %s\n", filename);
+                break;
         case 10:
-            printf("Выход из программы.\n");
-            free(factories); // Освобождение памяти
-            return 0;
+                printf("Выход из программы.\n");
+                free(factories); // Освобождение памяти
+                return 0;
         default:
-            printf("Неверный выбор, попробуйте снова.\n");
-            break;
+                printf("Неверный выбор, попробуйте снова.\n");
+                break;
         }
     }
 }
 
 /* Функции */
 
+// Функция добавления завода в массив заводов.
 void add_factory(Factory* factories, int* factory_count) {
 
     if (*factory_count >= MAX) {
@@ -154,11 +155,11 @@ void add_factory(Factory* factories, int* factory_count) {
     (*factory_count)++;
 }
 
+// Функция для добавления данных о новом работнике.
 void add_person(struct person* person) {
     printf("Введите фамилию, имя, отчество: ");
     scanf("%s %s %s", person->fam, person->im, person->ot);
-    while (1)
-    {
+    while (1){
         printf("Введите средний возраст: ");
         scanf("%d", &person->sr_vrst);
         if (person->sr_vrst < 0) {
@@ -192,6 +193,7 @@ void add_person(struct person* person) {
     }
 }
 
+// Функция для вывода информации о заводе и его работниках.
 void print_factory(Factory factory, int index) {
     printf("\n[~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-]\n");
     printf(" | ЗАПИСЬ НОМЕР : %d", index + 1);
@@ -211,12 +213,14 @@ void print_factory(Factory factory, int index) {
     }
 }
 
+// Функция для вывода информации о всех заводах.
 void print_factories(Factory* factories, int factory_count) {
     for (int i = 0; i < factory_count; i++) {
         print_factory(factories[i], i);
     }
 }
 
+// Функция для сохранения данных о заводах в файл.
 void create_factory_file(const char* filename, Factory* factories, int factory_count) {
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
@@ -247,6 +251,7 @@ void create_factory_file(const char* filename, Factory* factories, int factory_c
     fclose(file);
 }
 
+// Функция очистки содержимого в указанном файле.
 void clear_factory_file(const char* filename) {
     FILE* file = fopen(filename, "w");
     if (file == NULL) {
@@ -256,6 +261,7 @@ void clear_factory_file(const char* filename) {
     fclose(file);
 }
 
+// Функция чтения данных из файла.
 void read_factory_file(const char* filename, Factory* factories, int* factory_count) {
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
@@ -298,6 +304,7 @@ void read_factory_file(const char* filename, Factory* factories, int* factory_co
     fclose(file);
 }
 
+// Функция для редактирования данных о заводе и его работниках.
 void edit_factory(Factory* factories, const char* filename, int factory_count) {
     if (factory_count == 0) {
         printf("Нет данных для изменения.\n");
@@ -349,42 +356,43 @@ void edit_factory(Factory* factories, const char* filename, int factory_count) {
 
     switch (frird_choice) {
     case 1:
-        printf("Введите новую фамилию: ");
-        scanf("%s", selected_factory->persons[second_choice - 1].fam);
-        break;
+            printf("Введите новую фамилию: ");
+            scanf("%s", selected_factory->persons[second_choice - 1].fam);
+            break;
     case 2:
-        printf("Введите новое имя: ");
-        scanf("%s", selected_factory->persons[second_choice - 1].im);
-        break;
+            printf("Введите новое имя: ");
+            scanf("%s", selected_factory->persons[second_choice - 1].im);
+            break;
     case 3:
-        printf("Введите новое отчество: ");
-        scanf("%s", selected_factory->persons[second_choice - 1].ot);
-        break;
+            printf("Введите новое отчество: ");
+            scanf("%s", selected_factory->persons[second_choice - 1].ot);
+            break;
     case 4:
-        printf("Введите новый средний возраст: ");
-        scanf("%d", &selected_factory->persons[second_choice - 1].sr_vrst);
-        break;
+            printf("Введите новый средний возраст: ");
+            scanf("%d", &selected_factory->persons[second_choice - 1].sr_vrst);
+            break;
     case 5:
-        printf("Введите новую специальность: ");
-        scanf("%s", selected_factory->persons[second_choice - 1].specialty);
-        break;
+            printf("Введите новую специальность: ");
+            scanf("%s", selected_factory->persons[second_choice - 1].specialty);
+            break;
     case 6:
-        printf("Введите новый средний оклад: ");
-        scanf("%f", &selected_factory->persons[second_choice - 1].zp);
-        break;
+            printf("Введите новый средний оклад: ");
+            scanf("%f", &selected_factory->persons[second_choice - 1].zp);
+            break;
     case 7:
-        printf("Введите новый стаж: ");
-        scanf("%d", &selected_factory->persons[second_choice - 1].opit);
-        break;
+            printf("Введите новый стаж: ");
+            scanf("%d", &selected_factory->persons[second_choice - 1].opit);
+            break;
     default:
-        printf("Ошибка: неверный номер поля.\n");
-        return;
+            printf("Ошибка: неверный номер поля.\n");
+            return;
     }
     selected_factory->sr_oklad = calculate_sr_oklad(selected_factory);
     create_factory_file(filename, factories, factory_count);
     printf("Изменения сохранены в файл: %s\n", filename);
 }
 
+// Функция для вычисления среднего оклада работников завода.
 float calculate_sr_oklad(Factory* factories) {
     if (factories->col_person == 0) {
         return 0.0;
@@ -398,6 +406,7 @@ float calculate_sr_oklad(Factory* factories) {
     return total_zp / factories->col_person;
 }
 
+// Функция для очистки исходных данных о заводах.
 void clear_factories(Factory* factories, int* factory_count) {
     *factory_count = 0;
     for (int p = 0; p < MAX; p++) {
@@ -416,6 +425,7 @@ void clear_factories(Factory* factories, int* factory_count) {
     }
 }
 
+// Функция поиска завода по количеству персонала.
 Factory* search_by_quantity_employees(Factory* factories, int factory_count, int col_person) {
     for (int i = 0; i < factory_count; i++) {
         if (factories[i].col_person == col_person)
@@ -424,6 +434,7 @@ Factory* search_by_quantity_employees(Factory* factories, int factory_count, int
     return NULL;
 }
 
+// Функция сортировки по номеру завода.
 int compare_number_factory(const void* a, const void* b) {
     if (((Factory*)a)->naz_factory < ((Factory*)b)->naz_factory) {
         return -1;
@@ -433,6 +444,7 @@ int compare_number_factory(const void* a, const void* b) {
     }
 }
 
+// Функция для вывода меню доступных операций.
 void display_menu() {
     printf("\n[~-~-~-~-~-~-~--~ МЕНЮ -~-~-~-~-~-~-~-~-~]\n");
     printf(" 1. Загрузить данные из файла\n");
