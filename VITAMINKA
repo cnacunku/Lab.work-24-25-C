@@ -13,7 +13,7 @@ struct person {
     int sr_vrst;
     char specialty[50];
     float zp;
-    int opit; // Стаж в годах
+    int opit; // Стаж (в годах)
 };
 typedef struct person Person;
 
@@ -128,7 +128,6 @@ int main() {
     }
 }
 
-
 /* Функции */
 
 void add_factory(Factory* factories, int* factory_count) {
@@ -204,7 +203,7 @@ void print_factory(Factory factory, int index) {
         printf(" | Фамилия: %s\n", factory.persons[i].fam);
         printf(" | Имя: %s\n", factory.persons[i].im);
         printf(" | Отчество: %s\n", factory.persons[i].ot);
-        printf(" | Средний возраст: %d\n", factory.persons[i].sr_vrst);
+        printf(" | Возраст: %d\n", factory.persons[i].sr_vrst);
         printf(" | Специальность: %s\n", factory.persons[i].specialty);
         printf(" | Средний оклад: %.2f\n", factory.persons[i].zp);
         printf(" | Стаж: %d лет\n", factory.persons[i].opit);
@@ -265,25 +264,21 @@ void read_factory_file(const char* filename, Factory* factories, int* factory_co
     }
 
     while (1) {
-        // Читаем номер завода
         if (fscanf(file, "%d", &factories[*factory_count].naz_factory) != 1) {
-            break; // Выходим из цикла, если не удалось прочитать номер завода
+            break;
         }
 
-        // Читаем количество работников
         if (fscanf(file, "%d", &factories[*factory_count].col_person) != 1) {
             printf("Ошибка: не удалось прочитать количество работников для завода %d\n", factories[*factory_count].naz_factory);
             fclose(file);
             return;
         }
 
-        // Проверяем, чтобы количество работников не превышало MAX
         if (factories[*factory_count].col_person > MAX) {
             printf("Ошибка: количество работников не может превышать %d. Установлено в %d.\n", MAX, MAX);
-            factories[*factory_count].col_person = MAX; // Устанавливаем максимум
+            factories[*factory_count].col_person = MAX;
         }
 
-        // Чтение данных о работниках
         for (int i = 0; i < factories[*factory_count].col_person; i++) {
             if (fscanf(file, "%s %s %s %d %s %f %d",
                 factories[*factory_count].persons[i].fam,
@@ -294,17 +289,12 @@ void read_factory_file(const char* filename, Factory* factories, int* factory_co
                 &factories[*factory_count].persons[i].zp,
                 &factories[*factory_count].persons[i].opit) != 7) {
                 printf("Ошибка: не удалось прочитать данные о работнике %d на заводе %d\n", i + 1, factories[*factory_count].naz_factory);
-                break; // Выходим из цикла, если не удалось прочитать данные о работнике
+                break;
             }
         }
-
-        // Рассчитываем средний оклад для текущего завода
         factories[*factory_count].sr_oklad = calculate_sr_oklad(&factories[*factory_count]);
-
-        // Увеличиваем количество заводов
         (*factory_count)++;
     }
-
     fclose(file);
 }
 
@@ -350,7 +340,7 @@ void edit_factory(Factory* factories, const char* filename, int factory_count) {
     printf("1. Фамилия\n");
     printf("2. Имя\n");
     printf("3. Отчество\n");
-    printf("4. Средний возраст\n");
+    printf("4. Возраст\n");
     printf("5. Специальность\n");
     printf("6. Средний оклад\n");
     printf("7. Стаж\n");
