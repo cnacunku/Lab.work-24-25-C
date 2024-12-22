@@ -142,7 +142,7 @@ int main() {
                     break;
                 default:
                     printf("Некорректный вариант выбора.\n");
-                    continue; 
+                    continue;
                 }
                 print_factories(factories, factory_count);
             }
@@ -199,10 +199,10 @@ void add_person(struct person* person) {
     printf("Введите фамилию, имя, отчество: ");
     scanf("%s %s %s", person->fam, person->im, person->ot);
     while (1) {
-        printf("Введите средний возраст: ");
+        printf("Введите возраст: ");
         scanf("%d", &person->sr_vrst);
-        if (person->sr_vrst < 0) { 
-            printf("Ошибка: средний возраст не может быть отрицательным. Попробуйте снова.\n");
+        if (person->sr_vrst < 0) {
+            printf("Ошибка: возраст не может быть отрицательным. Попробуйте снова.\n");
         }
         else {
             break;
@@ -463,7 +463,7 @@ int compare_number_factory(const void* a, const void* b) {
     if (((Factory*)a)->naz_factory < ((Factory*)b)->naz_factory) {
         return -1;
     }
-    else 
+    else
         return 1;
 }
 
