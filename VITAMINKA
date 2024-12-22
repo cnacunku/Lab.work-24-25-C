@@ -30,13 +30,13 @@ typedef struct factory Factory;
 void add_factory(Factory* factories, int* factory_count);                                       // Добавляет новый завод в массив заводов.
 void add_person(struct person* person);                                                         // Запрашивает и добавляет данные о новом работнике.
 void print_factory(Factory factory, int index);                                                 // Выводит информацию о заводе и его работниках.
-void print_factories(Factory* factories, int factory_count);                                    // Выводит информацию о всех заводах.
+void print_factories(Factory* factories, int factory_count);                                    // Выводит информацию о вс  ех заводах.
 void create_factory_file(const char* filename, Factory* factories, int factory_count);          // Сохраняет данные о заводах в файл.
 void clear_factory_file(const char* filename);                                                  // Очищает содержимое указанного файла.
 void read_factory_file(const char* filename, Factory* factories, int* factory_count);           // Загружает данные о заводах из файла.
 void edit_factory(Factory* factories, const char* filename, int factory_count);                 // Позволяет редактировать данные о заводе и его работниках.
 float calculate_sr_oklad(Factory* factories);                                                   // Вычисляет средний оклад работников завода.
-void clear_factories(Factory* factories, int* factory_count);                                   // Очищает данные о заводах.
+void clear_factories(Factory* factories, int* factory_count);                                   // Очистить текущие загруженные данные
 Factory* search_by_quantity_employees(Factory* factories, int factory_count, char* col_person); // Ищет завод по количеству работников.
 int compare_number_factory(const void* a, const void* b);                                       // Сравнивает два завода по их номерам.
 int compare_average_salary(const void* a, const void* b);                                       // Сравнивает два завода по среднему окладу.
@@ -177,7 +177,6 @@ void add_factory(Factory* factories, int* factory_count) {
 
     if (*factory_count >= MAX) {
         printf("Ошибка: превышено максимальное количество заводов.\n");
-        return;
     }
 
     printf("Введите номер завода: ");
@@ -204,7 +203,7 @@ void add_person(struct person* person) {
     while (1) {
         printf("Введите средний возраст: ");
         scanf("%d", &person->sr_vrst);
-        if (person->sr_vrst < 0) {
+        if (person->sr_vrst < 0) { 
             printf("Ошибка: средний возраст не может быть отрицательным. Попробуйте снова.\n");
         }
         else {
@@ -391,7 +390,7 @@ void edit_factory(Factory* factories, const char* filename, int factory_count) {
     printf("3. Отчество\n");
     printf("4. Возраст\n");
     printf("5. Специальность\n");
-    printf("6. Средний оклад\n");
+    printf("6. Оклад\n");
     printf("7. Стаж\n");
     printf("Введите номер поля для изменения: ");
     scanf("%d", &frird_choice);
@@ -504,7 +503,7 @@ void display_menu() {
     printf(" 5. Вывести данные\n");
     printf(" 6. Поиск записи по количеству работников\n");
     printf(" 7. Сортировка записей\n");
-    printf(" 8. Очистить данные о заводах\n");
+    printf(" 8. Очистить текущие загруженные данные\n");
     printf(" 9. Очистка файла\n");
     printf("10. Выход\n");
     printf("[~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-]\n\n");
