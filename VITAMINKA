@@ -43,6 +43,13 @@ int compare_average_salary(const void* a, const void* b);                       
 void display_menu();                                                                            // Выводит меню доступных операций.    
 
 int main() {
+    printf("[~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-]\n");
+    printf(" |  Курсовая работа                                 |\n");
+    printf(" |  Тема: Разработка файловой базы данных 'Заводы'  |\n");
+    printf(" |  Выполнил: Чуфицкий Д.А.                         |\n");
+    printf(" |  Группа: бИД-241                                 |\n");
+    printf("[~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-]\n\n");
+
     Factory* factories = (Factory*)malloc(MAX * sizeof(Factory));
     if (factories == NULL) {
         printf("Ошибка: недостаточно памяти.\n");
