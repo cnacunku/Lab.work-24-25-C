@@ -249,7 +249,7 @@ void print_factory(Factory factory, int index) {
         printf(" | Отчество: %s\n", factory.persons[i].ot);
         printf(" | Возраст: %d\n", factory.persons[i].sr_vrst);
         printf(" | Специальность: %s\n", factory.persons[i].specialty);
-        printf(" | Средний оклад: %.2f\n", factory.persons[i].zp);
+        printf(" | О    клад: %.2f\n", factory.persons[i].zp);
         printf(" | Стаж: %d лет\n", factory.persons[i].opit);
         printf("[~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-]\n");
     }
@@ -378,9 +378,9 @@ void edit_factory(Factory* factories, const char* filename, int factory_count) {
     }
 
     int second_choice;
-    printf("Введите номер записи для изменения (от 1 до %d): ", factories->col_person);
+    printf("Введите номер записи для изменения (от 1 до %d): ", selected_factory->col_person);
     scanf("%d", &second_choice);
-    if (second_choice < 1 || second_choice > factories->col_person) {
+    if (second_choice < 1 || second_choice > selected_factory->col_person) {
         printf("Ошибка: неверный номер записи.\n");
         return;
     }
