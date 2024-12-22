@@ -349,7 +349,7 @@ void edit_factory(Factory* factories, const char* filename, int factory_count) {
         return;
     }
 
-    printf("Список заводов:\n");
+    printf("\nСписок заводов:\n");
     for (int i = 0; i < factory_count; i++) {
         printf("%d. Номер завода: %d\n", i + 1, factories[i].naz_factory);
     }
@@ -382,7 +382,7 @@ void edit_factory(Factory* factories, const char* filename, int factory_count) {
     }
 
     int frird_choice;
-    printf("1. Фамилия\n");
+    printf("\n1. Фамилия\n");
     printf("2. Имя\n");
     printf("3. Отчество\n");
     printf("4. Возраст\n");
