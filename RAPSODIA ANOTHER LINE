@@ -43,7 +43,7 @@ int compare_number_factory(const void* a, const void* b);                       
 int compare_average_salary(const void* a, const void* b);                                       // Сравнивает два завода по среднему окладу.
 void f_line(int f_size);                                                                        // Выводит горизонтальную линию с символами ~-, окружённую квадратными скобками [], заданную длиной f_size
 void s_line(int s_size);                                                                        // Выводит горизонтальную линию с символами ~-, окружённую вертикальными линиями [], заданную длиной s_size
-void clear_factories(Factory* factories, int* factory_count);                                   // Очистить загруженные данные о заводах
+void clear_factories(Factory* factories, int* factory_count);                                   // Очищает загруженные данные о заводах
 void clear_factory_file(const char* filename);                                                  // Очищает содержимое указанного файла.
 
 int main() {
@@ -72,9 +72,8 @@ int main() {
         printf(" 5. Вывести данные\n");
         printf(" 6. Поиск записи по количеству работников\n");
         printf(" 7. Сортировка записей\n");
-        printf(" 8. Очистить текущие загруженные данные\n");
-        printf(" 9. Очистка файла\n");
-        printf("10. Выход\n");
+        printf(" 8. Очистка файла\n");
+        printf(" 9. Выход\n");
         printf("[~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-]\n\n");
 
         printf("Введите номер операции: ");
@@ -204,16 +203,12 @@ int main() {
             }
             break;
         case 8:
-            clear_factories(factories, &factory_count);
-            printf("Данные о заводах и работниках очищены.\n");
-            break;
-        case 9:
             printf("Введите имя файла для очистки: ");
             scanf("%s", filename);
             clear_factory_file(filename);
             printf("Файл очищен: %s\n", filename);
             break;
-        case 10:
+        case 9:
             printf("Выход из программы.\n");
             free(factories); // Освобождение памяти
             return 0;
@@ -372,7 +367,7 @@ void read_factory_file(const char* filename, Factory* factories, int* factory_co
         for (int i = 0; i < factories[*factory_count].col_person; i++) {
             if (fscanf(file, "%s %s %s %d %s %f %d",
                 factories[*factory_count].persons[i].fam,
-                factories[*factory_count].persons[i].im,
+                factories[*factory_count].persons[i].im, 
                 factories[*factory_count].persons[i].ot,
                 &factories[*factory_count].persons[i].vrst,
                 factories[*factory_count].persons[i].specialty,
