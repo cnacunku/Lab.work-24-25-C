@@ -450,11 +450,11 @@ int compare_average_salary(const void* a, const void* b) {
 
 // Выводит горизонтальную линию с символами ~-, окружённую квадратными скобками [], заданную длиной f_size
 void f_line(f_size) {
-    printf("*");
+    printf("x");
     for (int i = 0; i < f_size; i++) {
         printf("-");
     }
-    printf("*\n");
+    printf("x\n");
 }
 
 // Выводит горизонтальную линию с символами ~-, окружённую вертикальными линиями [], заданную длиной s_size
