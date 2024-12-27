@@ -81,7 +81,7 @@ int main() {
 
         switch (choice) {
         case 1:
-            clear_factories(factories, &factory_count);
+            factory_count = 0;
             printf("Введите имя файла для загрузки данных: ");
             scanf("%s", filename);
             read_factory_file(filename, factories, &factory_count);
@@ -367,7 +367,7 @@ void read_factory_file(const char* filename, Factory* factories, int* factory_co
         for (int i = 0; i < factories[*factory_count].col_person; i++) {
             if (fscanf(file, "%s %s %s %d %s %f %d",
                 factories[*factory_count].persons[i].fam,
-                factories[*factory_count].persons[i].im, 
+                factories[*factory_count].persons[i].im,
                 factories[*factory_count].persons[i].ot,
                 &factories[*factory_count].persons[i].vrst,
                 factories[*factory_count].persons[i].specialty,
@@ -459,11 +459,6 @@ void s_line(s_size) {
         printf("-");
     }
     printf("|\n");
-}
-
-// Функция для очистки загруженных данных о заводах.
-void clear_factories(Factory* factories, int* factory_count) {
-    *factory_count = 0;
 }
 
 // Функция очистки содержимого в указанном файле.
