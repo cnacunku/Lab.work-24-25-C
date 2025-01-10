@@ -1,0 +1,188 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <locale.h>
+
+#ifndef _LIST_H
+#define _LIST_H
+
+struct listitem {
+    int number;
+    char name[80];
+    struct listitem* next;
+};
+
+typedef struct listitem* List;
+
+void initlist(List*); /* инициализация списка пустым содержимым */
+void insertfront_val(List*, int val); /* вставка в список перед узлом со значением поля number=val */
+void insertback_val(List*, int val); /* вставка в список перед узлом со значением поля number=val */
+void insertfront_str(List*, char* str); /* вставка в список перед узлом со значением str в поле name */
+void insertback_str(List*, char* str); /* вставка в список перед узлом со значением str в поле name */
+bool isempty(List*); /* проверяет, является ли список пустым */
+int length(List); /* определение длины списка */
+void destroyItem(List*, List node); /* удаление заданного узла node из списка */
+List getitem_n(List, int n); /* нахождение узла со значением n в поле number */
+List getitem_str(List, char* str); /* нахождение узла со значением str в поле name */
+void putslist(List pap); /* вывод списка на экран */
+
+#endif /* _LIST_H */
+
+// Инициализация списка пустым содержимым
+void initlist(List* pap) {
+    *pap = NULL;
+}
+
+// Вставка в список перед узлом со значением поля number=val
+void insertfront_val(List* pap, int val) {
+    List newNode = (List)malloc(sizeof(struct listitem));
+    newNode->number = val;
+    newNode->next = *pap;
+    *pap = newNode;
+}
+
+// Вставка в список перед узлом со значением поля number=val
+void insertback_val(List* pap, int val) {
+    List newNode = (List)malloc(sizeof(struct listitem));
+    newNode->number = val;
+    newNode->next = NULL;
+
+    if (*pap == NULL) {
+        *pap = newNode;
+    }
+    else {
+        List cursor = *pap;
+        while (cursor->next != NULL) {
+            cursor = cursor->next;
+        }
+        cursor->next = newNode;
+    }
+}
+
+// Вставка в список перед узлом со значением str в поле name
+void insertfront_str(List* pap, char* str) {
+    List newNode = (List)malloc(sizeof(struct listitem));
+    strcpy(newNode->name, str);
+    newNode->next = *pap;
+    *pap = newNode;
+}
+
+// Вставка в список перед узлом со значением str в поле name
+void insertback_str(List* pap, char* str) {
+    List newNode = (List)malloc(sizeof(struct listitem));
+    strcpy(newNode->name, str);
+    newNode->next = NULL;
+
+    if (*pap == NULL) {
+        *pap = newNode;
+    }
+    else {
+        List cursor = *pap;
+        while (cursor->next != NULL) {
+            cursor = cursor->next;
+        }
+        cursor->next = newNode;
+    }
+}
+
+// Проверяет, является ли список пустым
+bool isempty(List* pap) {
+    return *pap == NULL;
+}
+
+// Определение длины списка
+int length(List pap) {
+    int tick = 0;
+    List cursor = pap;
+    while (cursor != NULL) {
+        tick++;
+        cursor = cursor->next;
+    }
+    return tick;
+}
+
+// Удаление заданного узла node из списка
+void destroyItem(List* pap, List node) {
+    if (*pap == NULL || node == NULL)
+        return;
+
+    if (*pap == node) {
+        *pap = node->next;
+        free(node);
+        return;
+    }
+
+    List cursor = *pap;
+    while (cursor->next != NULL && cursor->next != node) {
+        cursor = cursor->next;
+    }
+
+    if (cursor->next == node) {
+        cursor->next = node->next;
+        free(node);
+    }
+}
+
+// Нахождение узла со значением n в поле number
+List getitem_n(List pap, int n) {
+    while (pap != NULL) {
+        if (pap->number == n) {
+            return pap;
+        }
+        pap = pap->next;
+    }
+    return NULL;
+}
+
+// Нахождение узла со значением str в поле name
+List getitem_str(List pap, char* str) {
+    while (pap != NULL) {
+        if (strcmp(pap->name, str) == 0) {
+            return pap;
+        }
+        pap = pap->next;
+    }
+    return NULL;
+}
+
+// Функция для вывода списка на экран
+void putslist(List pap) {
+    while (pap != NULL) {
+        printf("%d ", pap->number);
+        pap = pap->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    List myList;
+    initlist(&myList);
+
+    for (int i = 1; i <= 8; i++) {
+        insertback_val(&myList, i);
+    }
+
+    printf("Список до преобразования:\n");
+    putslist(myList);
+
+    List cursor = myList;
+    int count = 0;
+
+    while (cursor != NULL) {
+        count++;
+        if (count % 3 == 0) {
+            List newNode = (List)malloc(sizeof(struct listitem));
+            newNode->number = 10;
+            newNode->next = cursor->next;
+            cursor->next = newNode;
+            cursor = newNode; // Пропускаем вставленный узел
+        }
+        cursor = cursor->next;
+    }
+
+    printf("Список после преобразования:\n");
+    putslist(myList);
+}
