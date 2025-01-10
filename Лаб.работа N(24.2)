@@ -1,0 +1,88 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+#include <math.h>
+#include <time.h>
+
+#define NMAX 100
+
+// Определение структуры узла
+struct Node {
+    char data;
+    struct Node* next;
+};
+
+// Определение структуры очереди
+typedef struct {
+    struct Node* queue;
+    struct Node* front;
+    struct Node* back;
+} queue_list;
+
+// Функция для добавления элемента в очередь
+void enQueue(queue_list* que, char element) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = element;
+    newNode->next = NULL;
+
+    if (que->back != NULL) {
+        que->back->next = newNode;
+    }
+    else {
+        que->front = newNode;
+    }
+    que->back = newNode; 
+}
+
+// Функция для удаления и возврата элемента из начала очереди
+char deQueue(queue_list* que) {
+    if (que->front == NULL) {
+        printf("Ошибка: очередь пуста\n");
+        return -1;
+    }
+
+    char elem = que->front->data;
+    que->front = que->front->next;
+
+    if (que->front == NULL) {
+        que->back = NULL;
+    }
+
+    return elem; 
+}
+
+// Функция для отображения содержимого очереди
+void display(queue_list* que) {
+    struct Node* current = que->front;
+    if (current == NULL) {
+        printf("Очередь пуста\n");
+        return;
+    }
+    printf("Содержимое очереди: ");
+    while (current != NULL) {
+        printf("%c ", current->data);
+        current = current->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    queue_list QL;
+    QL.front = NULL;
+    QL.back = NULL;
+
+    char turn[NMAX];
+
+    printf("Введите строку: ");
+    fgets(turn, NMAX, stdin);
+
+    for (int i = 0; turn[i] != '\0' && turn[i] != '\n'; i++) { // пока текущий элемент массива не равен символу конца строки или символу новой строки 
+        enQueue(&QL, turn[i]);
+    }
+
+    display(&QL);
+    return 0;
+}
