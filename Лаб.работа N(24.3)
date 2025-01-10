@@ -1,0 +1,92 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+
+#define NMAX 100
+
+typedef struct {
+    int top;
+    char data[NMAX];
+} stack;
+
+// Проверить, если стек пуст
+int isempty(stack* SK) {
+    return SK->top == -1;
+}
+
+// Проверить, если стек полон
+int isfull(stack* SK) {
+    return SK->top == NMAX - 1;
+}
+
+// Поместить элемент a в стек
+int push(stack* SK, char val) {
+    if (isfull(SK)) {
+        printf("Ошибка: стек переполнен\n");
+        return -1;
+    }
+    SK->data[++(SK->top)] = val;
+    return 0; // успешно
+}
+
+// Вернуть элемент и удалить его из стека
+char pop(stack* SK) {
+    if (isempty(SK)) {
+        printf("Ошибка: стек пуст\n");
+        return -1;
+    }
+    return SK->data[SK->top--]; // Возвращаем элемент и уменьшаем top
+}
+
+// Функция для проверки, является ли w обратной строке s
+int isReverse(char* s, char* w) {
+    stack S;
+    S.top = -1;
+
+    // Помещаем строку s в стек
+    for (int i = 0; s[i] != '\0'; i++) {
+        push(&S, s[i]);
+    }
+
+    // Сравниваем элементы стека с элементами строки w
+    for (int i = 0; w[i] != '\0'; i++) {
+        if (pop(&S) != w[i]) {
+            return 0; // Не совпадает
+        }
+    }
+
+    return isempty(&S); // Если стек пуст, значит строки совпадают
+
+    /*
+    Если стек пуст, это означает, что все символы строки s были успешно сопоставлены с символами строки w, 
+    и функция возвращает 1 (true), что указывает на то, что w является обратной строкой s.
+    
+    Если стек не пуст, это означает, что в строке s было больше символов, чем в строке w, и функция возвращает 0(false).
+    */
+
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+
+    char s[NMAX], w[NMAX];
+
+    printf("Введите строку s: ");
+    fgets(s, NMAX, stdin);
+    s[strcspn(s, "\n")] = 0; // Удаляем символ новой строки
+
+    printf("Введите строку w: ");
+    fgets(w, NMAX, stdin);
+    w[strcspn(w, "\n")] = 0; // Удаляем символ новой строки
+
+    if (isReverse(s, w)) {
+        printf("Строка w является обратной строке s.\n");
+    }
+    else {
+        printf("Строка w не является обратной строке s.\n");
+    }
+
+    return 0;
+}
