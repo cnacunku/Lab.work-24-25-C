@@ -1,0 +1,84 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+#include <math.h>
+#include <time.h>
+
+#define NMAX 100
+#define FTYPE "%3c,"
+
+
+
+
+typedef struct {
+    int top;
+    char data[NMAX];
+} stack;
+
+// Проверить, если стек пуст
+int isempty(stack* SK) {
+    return SK->top == -1;
+}
+
+// Проверить, если стек полон
+int isfull(stack* SK) {
+    return SK->top == NMAX - 1;
+}
+
+// Поместить элемент a в стек
+int push(stack* SK, char val) {
+    if (isfull(SK)) {
+        printf("Ошибка: стек переполнен\n");
+        return -1;
+    }
+    SK->data[++(SK->top)] = val;
+    return 0; // успешно
+}
+
+// Вернуть элемент и удалить его из стека
+char pop(stack* SK) {
+    if (isempty(SK)) {
+        printf("Ошибка: стек пуст\n");
+        return -1;
+    }   
+    return SK->data[SK->top--]; // Возвращаем элемент и уменьшаем top
+}
+
+// Вернуть значение элемента в вершине стека
+char top(stack* SK) {
+    if (isempty(SK)) {
+        printf("Ошибка: стек пуст\n");
+        return -1; // Ошибка, стек пуст
+    }
+    return SK->data[SK->top]; // Возвращаем элемент в вершине стека
+}
+
+// Функция для отображения содержимого стека
+void display(stack* SK) {
+    int i = SK->top;
+    while (i >= 0) {
+        printf(FTYPE, SK->data[i--]);
+    }
+    printf("\n"); 
+}
+
+int main() {
+    setlocale(LC_CTYPE, "RUS");
+    stack S;
+    S.top = -1;
+
+    char Zadanie[NMAX];
+    printf("Введите строку: ");
+    fgets(Zadanie, NMAX, stdin);
+
+    for (int i = 0; i < strlen(Zadanie) - 1; i++) {
+        push(&S, Zadanie[i]);
+    }
+
+    printf("Содержимое стека:\n");
+    display(&S);
+
+    return 0;
+}
