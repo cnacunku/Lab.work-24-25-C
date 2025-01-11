@@ -56,7 +56,7 @@ int Check(char* s, char* w) {
         }
     }
 
-    return count == len_s; // Возвращаем 1 (true) или 0 (false)
+    return count == len_s; // Возвращаем true или 0 false
 
     // Если счетчик совпадений равен длине строки, они одинаковы
 
