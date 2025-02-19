@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	setlocale(LC_CTYPE, "RUS");
+
+	int n, y = 1; //Инициализируем n и y
+	cout << "Введите n: "; // Вспомогательное сообщение пользователю
+	cin >> n;
+	//Добавляем фигурные скобки для функций if / else
+	if (n % 2 != 0)
+	{
+		for (int i = 1; i <= n; i += 2) // меняем шаг i на +2
+			y = y * i;
+	}
+	else
+	{
+		for (int i = 2; i <= n; i += 2)
+			y = y * i;
+	}
+	cout << y << endl;
+}
