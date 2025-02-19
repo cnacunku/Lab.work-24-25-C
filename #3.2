@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+//3.1
+int main() {
+	setlocale(LC_CTYPE, "RUS");
+	float a, min, max, res;
+	int i = 2, n, a1, a2; //инициализируем i как int; инициализируем n, a1, a2
+	cout << "a1= , a2=" << endl;
+	cin >> a1 >> a2; // Заменяем запятые на "<<"
+	if (a1 > a2)
+	{
+		//Добавялем ";"
+		max = a1; //Меняем местами
+		min = a2; //Меняем местами
+	}//Убираем ;
+	else
+	{ // Добавляем скобки
+		max = a2; //Меняем местами
+		min = a1; //Меняем местами
+	}
+	i = 3;
+	
+	while (i < 100) //Выражение в скобки
+	{
+		cout << "a" << i << "="; // Заменяем запятые на "<<"; Убираем перенос endl 
+		cin >> a; // Перенос на новую строку
+		if (a < min) min = a;
+		if (a > max) max = a;
+		i++; // Перенос на новую строку
+	}// Закрываем while скобкой 
+
+	res = max - min; 
+	cout << res << endl;
+}
